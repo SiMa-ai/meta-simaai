@@ -1,0 +1,9 @@
+[Match]
+Name=eth*
+KernelCommandLine=netcfg=dhcp
+
+[Network]
+DHCP=yes
+
+[DHCPv4]
+UseHostname=false

@@ -1,0 +1,7 @@
+[Match]
+Name=eth1
+KernelCommandLine=!netcfg=dhcp
+
+[Network]
+Address=192.168.2.20/24
+Gateway=192.168.2.10

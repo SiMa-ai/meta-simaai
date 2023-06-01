@@ -1,0 +1,10 @@
+[Unit]
+Description= sima bootup init 
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/bootup_init.sh
+
+[Install]
+WantedBy=multi-user.target
+

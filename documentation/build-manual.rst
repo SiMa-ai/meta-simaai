@@ -91,17 +91,17 @@ boards. Steps to flash or load the image will be discussed in a separate documen
   #. Download Yocto project
      ::
 
-       git clone git://git.yoctoproject.org/poky -b honister
+       git clone git://git.yoctoproject.org/poky -b kirkstone
 
   #. Download Openembedded layer
      ::
      
-       git clone https://github.com/openembedded/meta-openembedded.git -b honister
+       git clone https://github.com/openembedded/meta-openembedded.git -b kirkstone
 
   #. Download software update layer
      ::
           
-       git clone https://github.com/sbabic/meta-swupdate.git -b honister
+       git clone https://github.com/sbabic/meta-swupdate.git -b kirkstone
 
   #. Download Sima AI BSP layer
      ::

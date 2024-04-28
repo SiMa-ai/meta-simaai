@@ -56,6 +56,11 @@ Prerequisites
    ::
    
       sudo apt install libncurses5
+# Additional packages for Ubuntu 22.04:  gawk lz4c
+   ::
+   
+      sudo apt install gawk
+      sudo apt install -y zstd liblz4-tool
        
 #. To install 32 bit execution environment please run below commands::
 

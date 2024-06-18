@@ -4,6 +4,7 @@
 #change uboot config parameter CONFIG_ENV_FAT_DEVICE_AND_PART="0:3" for diffferent node
 UBOOT_ENV_DEV=/dev/mmcblk0p3
 UBOOT_ENV_MOUNT=/tmp/boot
+NO_REBOOT_FILE=/tmp/no_reboot
 
 if [ $# -lt 1 ]; then
         exit 0;
@@ -73,6 +74,14 @@ if [ $1 == "preinst" ]; then
 fi
 
 if [ $1 == "postinst" ]; then
+	fdt_addr=`(fw_printenv fdt_addr)`
+	if [ ${fdt_addr} != "0xAF000000" ]; then
+		fw_setenv fdt_addr 0xAF000000
+	fi
+	kernel_addr=`(fw_printenv kernel_addr)`
+	if [ ${kernel_addr} != "0xAA000000" ]; then
+		fw_setenv kernel_addr 0xAA000000
+	fi
         get_boot_device
         get_update_part
         get_update_block_device
@@ -106,6 +115,12 @@ if [ $1 == "postinst" ]; then
                 rm /dev/update_uboot
         fi
 
+    if  [ -x "$(command -v resize2fs)" ]; then
+        resize2fs ${UPDATE_ROOT}
+    else
+        WARNING !! your rootfs was shrinked, install resize2fs to fix
+    fi
+
 	BOOT_DEVICE=${ROOT::-2}
 	echo boot device:${BOOT_DEVICE}
 	parted ${BOOT_DEVICE} toggle ${CURRENT_PART} legacy_boot
@@ -114,5 +129,8 @@ if [ $1 == "postinst" ]; then
 	parted ${BOOT_DEVICE} toggle ${UPDATE_UBOOT_PART} legacy_boot
 	fw_setenv upgrade_available 1
 	fw_setenv bootcount 0
-	sync && reboot
+    if [ ! -f "${NO_REBOOT_FILE}" ]; then
+        echo "rebooting the target!!"
+	    sync && reboot
+    fi
 fi

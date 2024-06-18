@@ -1,12 +1,248 @@
 software =
 {
-	version = "0.1.0";
+	version = 
 
-	simaai-image-minimal = {
+	simaai-image-palette = {
 		hardware-compatibility: [ "1.0"];
 				images: (
 					{
 						filename = "simaai-image-palette-davinci.ext4.gz";
+						device = "/dev/update_root";
+						type = "raw";
+						compressed = "zlib";
+					},
+					{
+						filename = "u-boot.bin";
+						device = "/dev/update_uboot";
+						type = "raw";
+					}
+				);
+				files: (
+					{
+						filename = "Image";
+						path = "update/Image"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+						#properties: {
+							#create-destination = "true";
+							#atomic-install = "true";
+						#}
+					},
+					{
+						filename = "davinci-combo-board.dtb";
+						path = "update/davinci-combo-board.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "davinci-dual-m2.dtb";
+						path = "update/davinci-dual-m2.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "davinci-hhhl.dtb";
+						path = "update/davinci-hhhl.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "boot.scr.uimg";
+						path = "update/boot.scr.uimg"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					}
+				);
+				scripts: (
+					{
+						filename = "update.sh";
+						type = "shellscript";
+					}
+				);
+
+	};
+	simaai-image-minimal = {
+		hardware-compatibility: [ "1.0"];
+				images: (
+					{
+						filename = "simaai-image-minimal-davinci.ext4.gz";
+						device = "/dev/update_root";
+						type = "raw";
+						compressed = "zlib";
+					},
+					{
+						filename = "u-boot.bin";
+						device = "/dev/update_uboot";
+						type = "raw";
+					}
+				);
+				files: (
+					{
+						filename = "Image";
+						path = "update/Image"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+						#properties: {
+							#create-destination = "true";
+							#atomic-install = "true";
+						#}
+					},
+					{
+						filename = "davinci-combo-board.dtb";
+						path = "update/davinci-combo-board.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "davinci-dual-m2.dtb";
+						path = "update/davinci-dual-m2.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "davinci-hhhl.dtb";
+						path = "update/davinci-hhhl.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "boot.scr.uimg";
+						path = "update/boot.scr.uimg"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					}
+				);
+				scripts: (
+					{
+						filename = "update.sh";
+						type = "shellscript";
+					}
+				);
+
+	};
+	simaai-image-diag = {
+		hardware-compatibility: [ "1.0"];
+				images: (
+					{
+						filename = "simaai-image-diag-davinci.ext4.gz";
+						device = "/dev/update_root";
+						type = "raw";
+						compressed = "zlib";
+					},
+					{
+						filename = "u-boot.bin";
+						device = "/dev/update_uboot";
+						type = "raw";
+					}
+				);
+				files: (
+					{
+						filename = "Image";
+						path = "update/Image"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+						#properties: {
+							#create-destination = "true";
+							#atomic-install = "true";
+						#}
+					},
+					{
+						filename = "davinci-combo-board.dtb";
+						path = "update/davinci-combo-board.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "davinci-dual-m2.dtb";
+						path = "update/davinci-dual-m2.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "davinci-hhhl.dtb";
+						path = "update/davinci-hhhl.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "boot.scr.uimg";
+						path = "update/boot.scr.uimg"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					}
+				);
+				scripts: (
+					{
+						filename = "update.sh";
+						type = "shellscript";
+					}
+				);
+
+	};
+	simaai-image-dev = {
+		hardware-compatibility: [ "1.0"];
+				images: (
+					{
+						filename = "simaai-image-dev-davinci.ext4.gz";
+						device = "/dev/update_root";
+						type = "raw";
+						compressed = "zlib";
+					},
+					{
+						filename = "u-boot.bin";
+						device = "/dev/update_uboot";
+						type = "raw";
+					}
+				);
+				files: (
+					{
+						filename = "Image";
+						path = "update/Image"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+						#properties: {
+							#create-destination = "true";
+							#atomic-install = "true";
+						#}
+					},
+					{
+						filename = "davinci-combo-board.dtb";
+						path = "update/davinci-combo-board.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "davinci-dual-m2.dtb";
+						path = "update/davinci-dual-m2.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "davinci-hhhl.dtb";
+						path = "update/davinci-hhhl.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "boot.scr.uimg";
+						path = "update/boot.scr.uimg"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					}
+				);
+				scripts: (
+					{
+						filename = "update.sh";
+						type = "shellscript";
+					}
+				);
+
+	};
+	simaai-image-edgematic = {
+		hardware-compatibility: [ "1.0"];
+				images: (
+					{
+						filename = "simaai-image-edgematic-davinci.ext4.gz";
 						device = "/dev/update_root";
 						type = "raw";
 						compressed = "zlib";

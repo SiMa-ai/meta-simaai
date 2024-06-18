@@ -145,6 +145,11 @@ boards. Steps to flash or load the image will be discussed in a separate documen
 
         bitbake simaai-image-minimal
 
+  #. Build linux swu update package
+     ::
+
+        bitbake simaai-image-minimal-upgrade
+
   #. Built images can be located at the following location in the build folder
      ::
      

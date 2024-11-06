@@ -2,7 +2,7 @@
 Description= sima bootup init 
 
 [Service]
-Type=notify
+Type=oneshot
 ExecStart=/usr/bin/bootup_init.sh
 
 [Install]

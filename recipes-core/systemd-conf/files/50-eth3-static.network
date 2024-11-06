@@ -2,6 +2,10 @@
 Name=eth3
 KernelCommandLine=!netcfg=dhcp
 
+[Link]
+MTUBytes=9000
+
 [Network]
 Address=192.168.4.20/24
 Gateway=192.168.4.10
+LinkLocalAddressing=no

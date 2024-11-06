@@ -5,5 +5,11 @@ KernelCommandLine=netcfg=dhcp
 [Network]
 DHCP=yes
 
+[Link]
+MTUBytes=9000
+
 [DHCPv4]
 UseHostname=false
+UseDomains=true
+ClientIdentifier=mac
+RequestOptions=17

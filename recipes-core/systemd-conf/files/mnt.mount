@@ -1,0 +1,13 @@
+[Unit]
+Description=NFS partition
+Requires=simaai-pick-nfs.service
+After=simaai-pick-nfs.service
+
+[Mount]
+What=${NFS_PATH}
+Where=/mnt
+Type=nfs
+Options=vers=4,timeo=60
+
+[Install]
+WantedBy=remote-fs.target

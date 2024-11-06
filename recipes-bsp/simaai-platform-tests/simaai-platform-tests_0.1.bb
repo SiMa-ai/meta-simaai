@@ -1,6 +1,7 @@
 DESCRIPTION = "Utilities for platform bringup for SIMA Davinci boards"
-LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
+LICENSE = "SiMaai-EULA-1.0"
+LICENSE_FLAGS = "commercial"
+LIC_FILES_CHKSUM = "file://${SIMAAI_LICENSE_DIR}/SiMaai-EULA-1.0;md5=b3adbdb7cc0f9b68072871b7c5914bf4"
 
 COMPATIBLE_MACHINE = "davinci"
 PROVIDES += "simaai-platform-tests"

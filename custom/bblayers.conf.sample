@@ -11,5 +11,7 @@ BBLAYERS ?= " \
   ${TOPDIR}/../poky/meta-yocto-bsp \
   ${TOPDIR}/../meta-simaai \
   ${TOPDIR}/../meta-openembedded/meta-oe \
+  ${TOPDIR}/../meta-openembedded/meta-python \
+  ${TOPDIR}/../meta-openembedded/meta-networking \
   ${TOPDIR}/../meta-swupdate \
   "

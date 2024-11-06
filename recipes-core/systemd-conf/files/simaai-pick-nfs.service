@@ -1,0 +1,21 @@
+[Unit]
+Description=Pick the SiMa.ai NFS Server
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c '[ -z "$(/bin/grep "netcfg=dhcp" /proc/cmdline )" ] \
+        && NFS_PATH="192.168.1.10:share" \
+        || for l in {1..5}; do \
+            if [ -f "/run/systemd/netif/leases/$l" ]; then \
+                NFS_PATH=$(/bin/grep ROOT_PATH= /run/systemd/netif/leases/$l | /usr/bin/cut -d "=" -f 2); \
+                [[ ! -z "$(/bin/grep "HOSTNAME" /run/systemd/netif/leases/$l )" ]] && \
+                /bin/hostname $(/bin/grep HOSTNAME /run/systemd/netif/leases/$l | /usr/bin/cut -d "=" -f 2); \
+                break; \
+            fi; \
+        done; \
+        /bin/systemctl set-environment NFS_PATH="$NFS_PATH"'
+
+[Install]
+WantedBy=multi-user.target

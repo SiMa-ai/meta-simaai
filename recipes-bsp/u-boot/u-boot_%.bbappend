@@ -1,5 +1,4 @@
 DESCRIPTION = "U-Boot for Sima.ai DaVinci Platform"
-LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=2ca5f2c35c8cc335f0a19756634782f1"
 
 COMPATIBLE_MACHINE = "davinci"

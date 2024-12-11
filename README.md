@@ -6,13 +6,13 @@ Dependencies
 ============
 
   URI: git://git.yoctoproject.org/poky
-  branch: honister
+  branch: kirkstone
 
   URI: https://github.com/openembedded/meta-openembedded.git
-  branch: honister
+  branch: kirkstone
 
   URI: https://github.com/sbabic/meta-swupdate.git
-  branch: honister
+  branch: kirkstone
 
 Table of Contents
 =================
@@ -29,4 +29,4 @@ Run 'bitbake-layers add-layer meta-simaai'
 II. Misc
 ========
 
---- replace with specific information about the meta-simaai layer ---
+Consult the documentation folder for more detailed build instructions

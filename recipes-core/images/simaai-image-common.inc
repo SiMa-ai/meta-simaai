@@ -5,7 +5,7 @@ COMPATIBLE_MACHINE = "davinci"
 inherit extrausers image-buildinfo
 
 CORE_IMAGE_EXTRA_INSTALL += "sudo nfs-utils-client u-boot-fw-utils swupdate e2fsprogs-resize2fs \
-                             simaai-firmwares parted rsyslog swsoc-hpidrv openssh man-db"
+                             simaai-firmwares parted rsyslog openssh man-db"
 
 EXTRA_USERS_PARAMS += "groupadd sima; \
                        useradd -p '$(cat ${THISDIR}/files/sima.pwd)' -g sima -G sudo sima; \

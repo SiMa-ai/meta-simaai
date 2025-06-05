@@ -1,0 +1,4 @@
+KERNELS=="1000000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end0"
+KERNELS=="1200000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end1"
+KERNELS=="1400000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end2"
+KERNELS=="1600000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end3"

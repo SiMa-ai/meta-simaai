@@ -28,7 +28,6 @@ do_install:append() {
 	install -m 0644 ${THISDIR}/files/davinci-cvu-fw ${D}${base_libdir}/firmware/
 	install -m 0644 ${THISDIR}/files/modalix-cvu-fw ${D}${base_libdir}/firmware/
 }
-}
 
 FILES:${PN} =+ 	"${base_libdir}/firmware/"
 INSANE_SKIP:${PN} += "arch"

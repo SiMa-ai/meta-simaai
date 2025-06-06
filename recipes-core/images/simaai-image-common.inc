@@ -8,7 +8,7 @@ COMPATIBLE_MACHINE = "davinci|modalix"
 inherit extrausers image-buildinfo
 
 CORE_IMAGE_EXTRA_INSTALL += "sudo nfs-utils-client u-boot-fw-utils swupdate e2fsprogs-resize2fs \
-                             simaai-firmwares parted procps rsyslog swsoc-hpidrv openssh man-db \
+                             simaai-firmwares simaai-drivers parted procps rsyslog openssh man-db \
                              tzdata-core tzdata-misc tzdata-posix tzdata-right tzdata-africa \
                              tzdata-americas tzdata-antarctica tzdata-arctic tzdata-asia \
                              tzdata-atlantic tzdata-australia tzdata-europe tzdata-pacific"

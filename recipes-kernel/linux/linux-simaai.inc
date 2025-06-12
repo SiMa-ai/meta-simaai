@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 require recipes-kernel/linux/linux-yocto.inc
 
 KMACHINE = "${MACHINE}"
-COMPATIBLE_MACHINE = "davinci"
+COMPATIBLE_MACHINE = "davinci|modalix"
 
 S = "${WORKDIR}/git"
 

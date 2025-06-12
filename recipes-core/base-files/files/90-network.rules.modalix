@@ -1,0 +1,4 @@
+KERNELS=="a800000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end0", ATTR{tx_queue_len}="4096"
+KERNELS=="b800000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end1", ATTR{tx_queue_len}="4096"
+KERNELS=="c800000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end2", ATTR{tx_queue_len}="4096"
+KERNELS=="d800000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end3", ATTR{tx_queue_len}="4096"

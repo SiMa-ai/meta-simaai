@@ -1,0 +1,510 @@
+software =
+{
+	version =
+
+	simaai-image-palette = {
+		hardware-compatibility: [ "1.0"];
+				images: (
+					{
+						filename = "simaai-image-palette-modalix.ext4.gz";
+						device = "/dev/update_root";
+						type = "raw";
+						compressed = "zlib";
+					},
+					{
+						filename = "u-boot.bin";
+						device = "/dev/update_uboot";
+						type = "raw";
+					}
+				);
+				files: (
+					{
+						filename = "Image";
+						path = "update/Image"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+						#properties: {
+							#create-destination = "true";
+							#atomic-install = "true";
+						#}
+					},
+					{
+						filename = "modalix-dvt.dtb";
+						path = "update/modalix-dvt.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+                                        {
+                                                filename = "imx477-0.dtbo";
+                                                path = "update/imx477-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-1.dtbo";
+                                                path = "update/imx477-1.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-2.dtbo";
+                                                path = "update/imx477-2.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-3.dtbo";
+                                                path = "update/imx477-3.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-0.dtbo";
+                                                path = "update/isp-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-1.dtbo";
+                                                path = "update/isp-1.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-2.dtbo";
+                                                path = "update/isp-2.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-3.dtbo";
+                                                path = "update/isp-3.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "pattern-generator-0.dtbo";
+                                                path = "update/pattern-generator-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+					{
+						filename = "boot.scr.uimg";
+						path = "update/boot.scr.uimg"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					}
+				);
+				scripts: (
+					{
+						filename = "update_modalix.sh";
+						type = "shellscript";
+					}
+				);
+
+	};
+	simaai-image-minimal = {
+		hardware-compatibility: [ "1.0"];
+				images: (
+					{
+						filename = "simaai-image-minimal-modalix.ext4.gz";
+						device = "/dev/update_root";
+						type = "raw";
+						compressed = "zlib";
+					},
+					{
+						filename = "u-boot.bin";
+						device = "/dev/update_uboot";
+						type = "raw";
+					}
+				);
+				files: (
+					{
+						filename = "Image";
+						path = "update/Image"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+						#properties: {
+							#create-destination = "true";
+							#atomic-install = "true";
+						#}
+					},
+					{
+						filename = "modalix-dvt.dtb";
+						path = "update/modalix-dvt.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+                                        {
+                                                filename = "imx477-0.dtbo";
+                                                path = "update/imx477-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-1.dtbo";
+                                                path = "update/imx477-1.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-2.dtbo";
+                                                path = "update/imx477-2.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-3.dtbo";
+                                                path = "update/imx477-3.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-0.dtbo";
+                                                path = "update/isp-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-1.dtbo";
+                                                path = "update/isp-1.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-2.dtbo";
+                                                path = "update/isp-2.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-3.dtbo";
+                                                path = "update/isp-3.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "pattern-generator-0.dtbo";
+                                                path = "update/pattern-generator-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+					{
+						filename = "boot.scr.uimg";
+						path = "update/boot.scr.uimg"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					}
+				);
+				scripts: (
+					{
+						filename = "update_modalix.sh";
+						type = "shellscript";
+					}
+				);
+
+	};
+	simaai-image-diag = {
+		hardware-compatibility: [ "1.0"];
+				images: (
+					{
+						filename = "simaai-image-diag-modalix.ext4.gz";
+						device = "/dev/update_root";
+						type = "raw";
+						compressed = "zlib";
+					},
+					{
+						filename = "u-boot.bin";
+						device = "/dev/update_uboot";
+						type = "raw";
+					}
+				);
+				files: (
+					{
+						filename = "Image";
+						path = "update/Image"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+						#properties: {
+							#create-destination = "true";
+							#atomic-install = "true";
+						#}
+					},
+					{
+						filename = "modalix-dvt.dtb";
+						path = "update/modalix-dvt.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+                                        {
+                                                filename = "imx477-0.dtbo";
+                                                path = "update/imx477-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-1.dtbo";
+                                                path = "update/imx477-1.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-2.dtbo";
+                                                path = "update/imx477-2.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-3.dtbo";
+                                                path = "update/imx477-3.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-0.dtbo";
+                                                path = "update/isp-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-1.dtbo";
+                                                path = "update/isp-1.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-2.dtbo";
+                                                path = "update/isp-2.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-3.dtbo";
+                                                path = "update/isp-3.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "pattern-generator-0.dtbo";
+                                                path = "update/pattern-generator-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+					{
+						filename = "boot.scr.uimg";
+						path = "update/boot.scr.uimg"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					}
+				);
+				scripts: (
+					{
+						filename = "update_modalix.sh";
+						type = "shellscript";
+					}
+				);
+
+	};
+	simaai-image-dev = {
+		hardware-compatibility: [ "1.0"];
+				images: (
+					{
+						filename = "simaai-image-dev-modalix.ext4.gz";
+						device = "/dev/update_root";
+						type = "raw";
+						compressed = "zlib";
+					},
+					{
+						filename = "u-boot.bin";
+						device = "/dev/update_uboot";
+						type = "raw";
+					}
+				);
+				files: (
+					{
+						filename = "Image";
+						path = "update/Image"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+						#properties: {
+							#create-destination = "true";
+							#atomic-install = "true";
+						#}
+					},
+					{
+						filename = "modalix-dvt.dtb";
+						path = "update/modalix-dvt.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+                                        {
+                                                filename = "imx477-0.dtbo";
+                                                path = "update/imx477-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-1.dtbo";
+                                                path = "update/imx477-1.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-2.dtbo";
+                                                path = "update/imx477-2.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-3.dtbo";
+                                                path = "update/imx477-3.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-0.dtbo";
+                                                path = "update/isp-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-1.dtbo";
+                                                path = "update/isp-1.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-2.dtbo";
+                                                path = "update/isp-2.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-3.dtbo";
+                                                path = "update/isp-3.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "pattern-generator-0.dtbo";
+                                                path = "update/pattern-generator-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+					{
+						filename = "boot.scr.uimg";
+						path = "update/boot.scr.uimg"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					}
+				);
+				scripts: (
+					{
+						filename = "update_modalix.sh";
+						type = "shellscript";
+					}
+				);
+
+	};
+	simaai-image-edgematic = {
+		hardware-compatibility: [ "1.0"];
+				images: (
+					{
+						filename = "simaai-image-edgematic-modalix.ext4.gz";
+						device = "/dev/update_root";
+						type = "raw";
+						compressed = "zlib";
+					},
+					{
+						filename = "u-boot.bin";
+						device = "/dev/update_uboot";
+						type = "raw";
+					}
+				);
+				files: (
+					{
+						filename = "Image";
+						path = "update/Image"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+						#properties: {
+							#create-destination = "true";
+							#atomic-install = "true";
+						#}
+					},
+					{
+						filename = "modalix-dvt.dtb";
+						path = "update/modalix-dvt.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+                                        {
+                                                filename = "imx477-0.dtbo";
+                                                path = "update/imx477-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-1.dtbo";
+                                                path = "update/imx477-1.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-2.dtbo";
+                                                path = "update/imx477-2.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "imx477-3.dtbo";
+                                                path = "update/imx477-3.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-0.dtbo";
+                                                path = "update/isp-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-1.dtbo";
+                                                path = "update/isp-1.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-2.dtbo";
+                                                path = "update/isp-2.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "isp-3.dtbo";
+                                                path = "update/isp-3.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+                                        {
+                                                filename = "pattern-generator-0.dtbo";
+                                                path = "update/pattern-generator-0.dtbo"
+                                                device = "/dev/update_kernel";
+                                                filesystem = "vfat";
+                                        },
+					{
+						filename = "boot.scr.uimg";
+						path = "update/boot.scr.uimg"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					}
+				);
+				scripts: (
+					{
+						filename = "update_modalix.sh";
+						type = "shellscript";
+					}
+				);
+
+	};
+}

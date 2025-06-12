@@ -1,0 +1,60 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2024 SiMa ai
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+    fragment@10 {
+        target-path = "/"; /* Root node of the base tree */
+        __overlay__ {
+            imx477_vana_2: csi2_fixedregulator@0 {
+                compatible = "regulator-fixed";
+                regulator-name = "imx477_vana_2";
+                regulator-min-microvolt = <2800000>;
+                regulator-max-microvolt = <2800000>;
+                enable-active-high;
+                startup-delay-us = <300000>;
+                regulator-always-on;
+            };
+            imx477_vdig_2: csi2_fixedregulator@1 {
+                compatible = "regulator-fixed";
+                regulator-name = "imx477_vdig_2";
+                regulator-min-microvolt = <1050000>;
+                regulator-max-microvolt = <1050000>;
+                regulator-always-on;
+            };
+            imx477_vddl_2: csi2_fixedregulator@2 {
+                compatible = "regulator-fixed";
+                regulator-name = "imx477_vddl_2";
+                regulator-min-microvolt = <1800000>;
+                regulator-max-microvolt = <1800000>;
+                regulator-always-on;
+            };
+            imx477_clk_2: csi2_camera-clk {
+                compatible = "fixed-clock";
+                #clock-cells = <0>;
+                clock-frequency = <24000000>;
+            };
+        };
+    };
+};
+
+&i2c02 {
+	status = "okay";
+	clock-frequency = <400000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+        i2c02s0: sensor@1a {
+            compatible = "sony,imx477";
+            reg = <0x1a>;
+            clocks = <&imx477_clk_2>;
+            clock-names = "xclk";
+            VANA-supply = <&imx477_vana_2>;
+            VDIG-supply = <&imx477_vdig_2>;
+            VDDL-supply = <&imx477_vddl_2>;
+        };
+};

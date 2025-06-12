@@ -1,0 +1,11 @@
+[Match]
+Name=end2
+KernelCommandLine=!netcfg=dhcp
+
+[Link]
+MTUBytes=9000
+
+[Network]
+Address=192.168.3.20/24
+Gateway=192.168.3.10
+LinkLocalAddressing=no

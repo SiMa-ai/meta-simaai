@@ -3,7 +3,7 @@ LICENSE = "SiMaai-EULA-1.0"
 LICENSE_FLAGS = "commercial"
 LIC_FILES_CHKSUM = "file://${SIMAAI_LICENSE_DIR}/SiMaai-EULA-1.0;md5=b3adbdb7cc0f9b68072871b7c5914bf4"
 
-COMPATIBLE_MACHINE = "davinci"
+COMPATIBLE_MACHINE = "davinci|modalix"
 DEPENDS += "virtual/kernel"
 PROVIDES += "simaai-mem"
 ARCH = "arm64"

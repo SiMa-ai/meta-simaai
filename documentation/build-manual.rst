@@ -143,14 +143,35 @@ boards. Steps to flash or load the image will be discussed in a separate documen
   #. Trigger build
      ::
 
-        bitbake simaai-image-minimal
+        For 'davinci'
+
+        MACHINE=davinci bitbake simaai-image-minimal
+     ::
+
+        For 'modalix'
+
+        MACHINE=modalix bitbake simaai-image-minimal
 
   #. Build linux swu update package
      ::
 
-        bitbake simaai-image-minimal-upgrade
+        For 'davinci'
+
+        MACHINE=davinci bitbake simaai-image-minimal-upgrade
+     ::
+
+        For 'modalix'
+
+        MACHINE=modalix bitbake simaai-image-minimal-upgrade
 
   #. Built images can be located at the following location in the build folder
      ::
-     
+
+        For 'davinci'
+
+        build/tmp/deploy/images/davinci
+     ::
+
+        For 'modalix'
+
         build/tmp/deploy/images/davinci

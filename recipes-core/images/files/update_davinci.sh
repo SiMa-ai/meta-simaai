@@ -57,7 +57,14 @@ function get_update_block_device() {
 }
 
 function get_current_build_version() {
-        cur_build_version=$(grep "SIMA_BUILD_VERSION" /etc/build | cut -d "=" -f 2)
+	if [ -f /etc/build ]; then
+            cur_build_version=$(grep "SIMA_BUILD_VERSION" /etc/build | cut -d "=" -f 2)
+        elif [ -f /etc/buildinfo ]; then
+            cur_build_version=$(grep "SIMA_BUILD_VERSION" /etc/buildinfo | cut -d "=" -f 2)
+        else
+            cur_build_version=""
+        fi
+
         echo "build version:${cur_build_version}"
         cur_sdk_version=$( echo ${cur_build_version}| cut -d "_" -f 1)
         cur_sdk_version=${cur_sdk_version//.}
@@ -71,7 +78,14 @@ function get_updated_build_version() {
        mkdir -p /tmp/alt_rootfs
 	echo Updating ${UPDATE_ROOT}...
        mount -t ext4 ${UPDATE_ROOT} /tmp/alt_rootfs
-       install_build_version=$(grep "SIMA_BUILD_VERSION" /tmp/alt_rootfs/etc/build | cut -d "=" -f 2)
+       if [ -f /tmp/alt_rootfs/etc/build ]; then
+            install_build_version=$(grep "SIMA_BUILD_VERSION" /tmp/alt_rootfs/etc/build | cut -d "=" -f 2)
+        elif [ -f /tmp/alt_rootfs/etc/buildinfo ]; then
+            install_build_version=$(grep "SIMA_BUILD_VERSION" /tmp/alt_rootfs/etc/buildinfo | cut -d "=" -f 2)
+        else
+            install_build_version=""
+        fi
+
        umount /tmp/alt_rootfs
        rm -rf /tmp/alt_rootfs
         #install_build_version=1.4.0_master_B1160

@@ -1,0 +1,1 @@
+SUBSYSTEM=="rpmsg", KERNEL=="rpmsg*", GROUP="sima", MODE="0660", RUN+="/bin/bash -c '/bin/touch /tmp/rpmsg_lock && chmod 664 /tmp/rpmsg_lock && chown root:sima /tmp/rpmsg_lock'"

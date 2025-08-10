@@ -6,6 +6,11 @@ UBOOT_ENV_DEV=/dev/mmcblk0p3
 UBOOT_ENV_MOUNT=/tmp/boot
 NO_REBOOT_FILE=/tmp/no_reboot
 
+#Build details
+install_build_version=0
+install_sdk_version=0
+install_branch_name=0
+install_build_number=0
 
 if [ $# -lt 1 ]; then
         exit 0;
@@ -46,6 +51,30 @@ function get_update_block_device() {
 	fi
 }
 
+function get_updated_build_version() {
+       mkdir -p /tmp/alt_rootfs
+	echo Updating ${UPDATE_ROOT}...
+       mount -t ext4 ${UPDATE_ROOT} /tmp/alt_rootfs
+       if [ -f /tmp/alt_rootfs/etc/build ]; then
+            install_build_version=$(grep "SIMA_BUILD_VERSION" /tmp/alt_rootfs/etc/build | cut -d "=" -f 2)
+        elif [ -f /tmp/alt_rootfs/etc/buildinfo ]; then
+            install_build_version=$(grep "SIMA_BUILD_VERSION" /tmp/alt_rootfs/etc/buildinfo | cut -d "=" -f 2)
+        else
+            install_build_version=""
+        fi
+
+       umount /tmp/alt_rootfs
+       rm -rf /tmp/alt_rootfs
+        #install_build_version=1.4.0_master_B1160
+        #install_build_version=1.4.0_master_PRIVATE
+        echo "install_build version:${install_build_version}"
+        install_sdk_version=$( echo ${install_build_version}| cut -d "_" -f 1)
+        install_sdk_version=${install_sdk_version//.}
+        install_branch_name=$( echo ${install_build_version}| cut -d "_" -f 2)
+        install_build_number=$( echo ${install_build_version}| cut -d "_" -f 3)
+        echo "Install sdk:${install_sdk_version}, branch:${install_branch_name}, build:${install_build_number}"
+}
+
 if [ $1 == "preinst" ]; then
         # get current root device
         get_boot_device
@@ -84,6 +113,78 @@ if [ $1 == "postinst" ]; then
 		resize2fs ${UPDATE_ROOT}
 	else
 		WARNING !! your rootfs was shrinked, install resize2fs to fix
+	fi
+
+	#get updated build details
+	get_updated_build_version
+
+	if [  ${install_sdk_version} -ge "170" ]; then
+		echo "updating required u-boot env parameters"
+		fdt_addr=`(fw_printenv fdt_addr)`
+		if [ ${fdt_addr} != "0x1184000000" ]; then
+			fw_setenv fdt_addr 0x1184000000
+		fi
+		kernel_addr=`(fw_printenv kernel_addr)`
+		if [ ${kernel_addr} != "0x1180000000" ]; then
+			fw_setenv kernel_addr 0x1180000000
+		fi
+		cpio_addr=`(fw_printenv cpio_addr)`
+		if [ ${cpio_addr} != "0x1188000000" ]; then
+			fw_setenv cpio_addr 0x1188000000
+		fi
+		scriptaddr=`(fw_printenv scriptaddr)`
+		if [ ${scriptaddr} != "0x1187000000" ]; then
+			fw_setenv scriptaddr 0x1187000000
+		fi
+		dtbo_addr=`(fw_printenv dtbo_addr)`
+		if [ ${dtbo_addr} != "0x1185000000" ]; then
+			fw_setenv dtbo_addr 0x1185000000
+		fi
+		initrd_high=`(fw_printenv initrd_high)`
+		if [ ${initrd_high} != "0xFFFFFFFFFFFFFFFF" ]; then
+			fw_setenv initrd_high 0xFFFFFFFFFFFFFFFF
+		fi
+	else
+		echo "down grading required u-boot env parameters"
+		fdt_addr=`(fw_printenv fdt_addr)`
+		if [ ${fdt_addr} != "0x1004000000" ]; then
+			fw_setenv fdt_addr 0x1004000000
+		fi
+		kernel_addr=`(fw_printenv kernel_addr)`
+		if [ ${kernel_addr} != "0x1000000000" ]; then
+			fw_setenv kernel_addr 0x1000000000
+		fi
+		cpio_addr=`(fw_printenv cpio_addr)`
+		if [ ${cpio_addr} != "0x1008000000" ]; then
+			fw_setenv cpio_addr 0x1008000000
+		fi
+		scriptaddr=`(fw_printenv scriptaddr)`
+		if [ ${scriptaddr} != "0x1007000000" ]; then
+			fw_setenv scriptaddr 0x1007000000
+		fi
+		dtbo_addr=`(fw_printenv dtbo_addr)`
+		if [ ${dtbo_addr} != "0x1005000000" ]; then
+			fw_setenv dtbo_addr 0x1005000000
+		fi
+		fw_setenv initrd_high
+	fi
+
+#add uio driver info in bootargs if not present already
+	fw_printenv bootargs_common | grep -q uio
+	if [ $? != 0 ]; then
+		bootargs=`(fw_printenv bootargs_common | cut -d"=" -f2-)`
+		bootargs=`(echo $bootargs " uio_pdrv_genirq.of_id=generic-uio")`
+		fw_setenv bootargs_common "${bootargs}"
+	fi
+
+#change baud-rate to 115200
+	if [  ${install_sdk_version} -ge "170" ]; then
+		baudrate=115200
+		fw_setenv baudrate ${baudrate}
+		bootargs=`(fw_printenv bootargs_common | cut -d"=" -f2-)`
+		ttydev=`(echo ${bootargs} | sed -e 's/console=//' | cut -d"," -f1)`
+		bootargs_new=`(echo ${bootargs} | sed -e "s/console=tty.*n8/console\=${ttydev},${baudrate}n8/g")`
+		fw_setenv bootargs_common "${bootargs_new}"
 	fi
 
 	if [ $UPDATE_KERNEL != $UBOOT_ENV_DEV ]; then

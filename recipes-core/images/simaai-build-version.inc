@@ -42,7 +42,7 @@ def  build_version(d):
     print(version)
 
     # get branch information
-    branch_name = base_get_metadata_git_branch(meta_simaai_path, None).strip()
+    branch_name = oe.buildcfg.get_metadata_git_branch(meta_simaai_path).strip()
     print(branch_name)
 
     if "PRIVATE" not in build_number:

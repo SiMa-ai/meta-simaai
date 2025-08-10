@@ -19,7 +19,42 @@ SRC_URI = "\
 include simaai-build-version.inc
 
 do_unpack:append() {
-    os.system("cp " + d.getVar('WORKDIR') + "/" + d.getVar('SW_FILE') + " " + d.getVar('WORKDIR') + "/sw-description")
+    machine = d.getVar('MACHINE')
+    if machine == 'modalix':
+        workdir = d.getVar('WORKDIR')
+        dtbo_dir = os.path.join(d.getVar('DEPLOY_DIR_IMAGE'), "overlays")
+        base = os.path.join(workdir, d.getVar('SW_FILE'))
+        output_path = os.path.join(workdir, "sw-description")
+
+        entries = []
+        if os.path.isdir(dtbo_dir):
+            for fname in sorted(os.listdir(dtbo_dir)):
+                if fname.endswith(".dtbo"):
+                    entry = f'''        {{
+                filename = "{fname}";
+                path = "update/{fname}";
+                device = "/dev/update_kernel";
+                filesystem = "vfat";
+            }}'''
+                    entries.append(entry)
+
+        if not entries:
+            dtbo_entries_str = ""
+        else:
+            dtbo_entries_str = ",\n".join(entries)
+
+        if not os.path.isfile(base):
+            bb.fatal(f"Base description file not found: {base}")
+
+        with open(base, "r") as f:
+            base_sw_description = f.read()
+
+        output = base_sw_description.replace("@DTBO_ENTRIES@", dtbo_entries_str)
+
+        with open(output_path, "w") as f:
+            f.write(output)
+    else:
+        os.system("cp " + d.getVar('WORKDIR') + "/" + d.getVar('SW_FILE') + " " + d.getVar('WORKDIR') + "/sw-description")
 }
 
 def populate_dtbo(d):

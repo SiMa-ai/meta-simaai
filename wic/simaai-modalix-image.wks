@@ -8,6 +8,6 @@ part --source rawcopy --sourceparams="file=u-boot.bin" --part-name u-boot1 --ali
 part --source bootimg-sima-partition --part-name boot --include-path=boot-0 --include-path=boot-1  --active --align 1024 --fstype vfat --fixed-size 512M
 part --source rootfs --fstype=ext4 --active --part-name platform0 --align 1024 --fixed-size 2G
 part --source rootfs --fstype=ext4 --part-name platform1 --align 1024 --fixed-size 2G
-part --fstype=ext4 --active --part-name userdata --align 1024 --size 10664943K
+part --fstype=ext4 --active --part-name userdata --align 1024 --size 10464943K
 
 bootloader  --ptable gpt --timeout=3

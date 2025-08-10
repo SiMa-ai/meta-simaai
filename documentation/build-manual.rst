@@ -51,11 +51,12 @@ Prerequisites
 #. Please check `Compatible Linux distributions <https://docs.yoctoproject.org/ref-manual/system-requirements.html?highlight=system+packages#supported-linux-distributions>`_
    
    .. note::
-      WSL OS is not supported by Yocto. We recommend Ubuntu 20.04.
-#. Additional packages for Ubuntu 20.04: libncurses5
+      WSL OS is not supported by Yocto. We recommend Ubuntu 22.04.
+#. Additional packages for Ubuntu 22.04:
    ::
    
-      sudo apt install libncurses5
+     sudo apt-get install chrpath diffstat g++ gawk make liblz4-tool cmake python3 \
+     python3-distutils libncurses5 git gfortran
        
 #. To install 32 bit execution environment please run below commands::
 
@@ -91,21 +92,58 @@ boards. Steps to flash or load the image will be discussed in a separate documen
   #. Download Yocto project
      ::
 
-       git clone git://git.yoctoproject.org/poky -b kirkstone
+       git clone git://git.yoctoproject.org/poky -b scarthgap
 
-  #. Download Openembedded layer
+       cd poky
+
+       git fetch --tags
+
+       git checkout scarthgap-5.0.6
+
+  #. Download Clone meta-clang
      ::
+       git clone https://github.com/kraj/meta-clang.git -b scarthgap
+
+       cd meta-clang
+
+       git reset --hard 8c77b427408db01b8de4c04bd3d247c13c154f92
+
+  #. Download Clone meta-clang-revival
+     ::
+       git clone https://github.com/zboszor/meta-clang-revival.git -b scarthgap
+
+       cd meta-clang-revival
+
+       git reset --hard 1855a8e8be9e600d48fa354670f8d968ed1b1d02
+
+  #. Download Clone meta-openembedded
+     ::
+       git clone https://github.com/openembedded/meta-openembedded.git -b scarthgap
+
+       cd meta-openembedded
+
+       git reset --hard dda0d53326017d6758ec6bdfdaf2f484c089d13f
+
+
+  #. Download openembedded-core
+     ::
+       git clone https://git.openembedded.org/openembedded-core -b scarthgap
+
+       cd openembedded-core
+
+       git reset --hard 62cb12967391db709315820d48853ffa4c6b4740
      
-       git clone https://github.com/openembedded/meta-openembedded.git -b kirkstone
 
   #. Download software update layer
      ::
-          
-       git clone https://github.com/sbabic/meta-swupdate.git -b kirkstone
+       git clone https://github.com/sbabic/meta-swupdate.git -b scarthgap
+
+       cd meta-swupdate
+
+       git reset --hard 4a65b1ed36c0b6ee4942d5f23c4984552b17cfe6
 
   #. Download Sima AI BSP layer
      ::
-
        git clone https://github.com/SiMa-ai/meta-simaai.git
 
 - Setup Environment 
@@ -113,7 +151,7 @@ boards. Steps to flash or load the image will be discussed in a separate documen
   #. Source layers and config files using template file. Custom folder of meta-simaai has two files, which the yocto uses to populate bblayers.conf and local.conf file.
      ::
 
-          export TEMPLATECONF=<path to meta-simaai>/meta-simaai/custom
+          export TEMPLATECONF=<path to meta-simaai>/meta-simaai/conf/templates/custom
  
   #. The following command will create and change the current directory to the new directory build.
      ::
@@ -122,16 +160,25 @@ boards. Steps to flash or load the image will be discussed in a separate documen
  
   #. Verify layers:: 
 
+
           $ bitbake-layers show-layers
           NOTE: Starting bitbake server...
-          layer                 path                                      priority
-          ==========================================================================
-          meta                  /local/build/../poky/meta                 5
-          meta-poky             /local/build/../poky/meta-poky            5
-          meta-yocto-bsp        /local/build/../poky/meta-yocto-bsp       5
-          meta-simaai           /local/build/../meta-simaai      6
-          meta-oe               /local/build/../meta-openembedded/meta-oe  6
-          meta-swupdate         /local/build/../meta-swupdate             6
+            layer                 path                                                priority
+            ========================================================================================================
+            core                  /local/build/../poky/meta                             5
+            yocto                 /local/build/../poky/meta-poky                        5
+            yoctobsp              /local/build/../poky/meta-yocto-bsp                   5
+            meta-simaai           /local/build/../pub-meta-simaai                       8
+            meta-python-ai        /local/build/../meta-python-ai                        6
+            clang-revival-layer   /local/build/../meta-clang-revival                    6
+            clang-layer           /local/build/../meta-clang                            5
+            openembedded-layer    /local/build/../meta-openembedded/meta-oe             5
+            meta-python           /local/build/../meta-openembedded/meta-python         5
+            networking-layer      /local/build/../meta-openembedded/meta-networking     5
+            multimedia-layer      /local/build/../meta-openembedded/meta-multimedia     5
+            gnome-layer           /local/build/../meta-openembedded/meta-gnome          5
+            xfce-layer            /local/build/../meta-openembedded/meta-xfce           5
+            swupdate              /local/build/../meta-swupdate                         6
 
 - Building image 
   

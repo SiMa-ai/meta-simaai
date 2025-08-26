@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2025 SiMa ai
+ *
+ * Overlay for 8-lane(rc0) PCIe Root Complex
+ */
+
+/dts-v1/;
+/plugin/;
+
+&gic_its0 {
+        status = "okay";
+};
+
+&pcie0_rc {
+        status = "okay";
+};

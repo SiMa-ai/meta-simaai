@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 /*
- * Copyright (c) 2024 SiMa ai
+ * Copyright (c) 2025 SiMa ai
  */
 
 /dts-v1/;
@@ -19,13 +19,33 @@
     };
 };
 
-&i2c02 {
+&port5 {
+       cam-hog1 {
+               gpio-hog;
+               /* Set port5 gpio7 to GPIO_ACTIVE_HIGH mode */
+               gpios = <7 0>;
+               output-high;
+               line-name = "cam1_powdn";
+       };
+};
+
+&port6 {
+       cam-tog {
+               gpio-hog;
+               /* Set port6 gpio6 to GPIO_ACTIVE_HIGH mode */
+               gpios = <6 0>;
+               output-high;
+               line-name = "cam_switch";
+       };
+};
+
+&i2c52 {
 	status = "okay";
 	clock-frequency = <400000>;
 	#address-cells = <1>;
 	#size-cells = <0>;
 
-        i2c02s0: sensor@1a {
+        i2c52s0: sensor@1a {
             compatible = "sony,imx477";
             reg = <0x1a>;
             clocks = <&imx477_clk_2>;

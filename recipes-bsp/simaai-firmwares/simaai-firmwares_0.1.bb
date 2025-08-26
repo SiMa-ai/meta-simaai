@@ -11,6 +11,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 SRC_URI += " \
 	file://mla_init_davinci.lm \
 	file://mla_init_modalix.elf \
+	file://renesas_usb_fw.mem \
 	file://x33x0fw.hdr"
 
 do_install:append() {
@@ -24,6 +25,7 @@ do_install:append() {
 	install -m 0644 ${THISDIR}/files/modalix-evxx-fw ${D}${base_libdir}/firmware/
 	install -m 0755 ${WORKDIR}/mla_init_davinci.lm ${D}${bindir}/
 	install -m 0755 ${WORKDIR}/mla_init_modalix.elf ${D}${bindir}/
+	install -m 0644 ${WORKDIR}/renesas_usb_fw.mem ${D}${base_libdir}/firmware/
 	install -m 0644 ${WORKDIR}/x33x0fw.hdr ${D}${base_libdir}/firmware/
 	install -m 0644 ${THISDIR}/files/davinci-cvu-fw ${D}${base_libdir}/firmware/
 	install -m 0644 ${THISDIR}/files/modalix-cvu-fw ${D}${base_libdir}/firmware/

@@ -10,6 +10,9 @@ BBLAYERS ?= " \
   ${TOPDIR}/../poky/meta-poky \
   ${TOPDIR}/../poky/meta-yocto-bsp \
   ${TOPDIR}/../meta-simaai \
+  ${TOPDIR}/../meta-python-ai \
+  ${TOPDIR}/../meta-clang-revival \
+  ${TOPDIR}/../meta-clang \
   ${TOPDIR}/../meta-openembedded/meta-oe \
   ${TOPDIR}/../meta-openembedded/meta-python \
   ${TOPDIR}/../meta-openembedded/meta-networking \

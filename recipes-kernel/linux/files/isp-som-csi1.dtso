@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 /*
- * Copyright (c) 2024 SiMa ai
+ * Copyright (c) 2025 SiMa ai
  */
 
 /dts-v1/;
 /plugin/;
 
-&i2c01 {
-	i2c01s0: sensor@1a {
-		i2c01p0: port@1 {
+&i2c52 {
+	i2c52s0: sensor@1a {
+		i2c52p0: port@1 {
 			camera_1: endpoint@0 {
 				remote-endpoint = <&w1vc0>;
-				data-lanes = <1 2 3 4>;
+				data-lanes = <1 2>;
 				clock-lanes = <0>;
 				clock-continuous;
 				link-frequencies = /bits/ 64 <450000000>;
@@ -31,7 +31,7 @@
 		reg = <1>;
 		w1vc0_to_isp1: endpoint@1 {
 			remote-endpoint = <&isp1_to_w1vc0>;
-			data-lanes = <1 2 3 4>;
+			data-lanes = <1 2>;
 			clock-lanes = <1>;
 			clock-continuous;
 			link-frequencies = /bits/ 64 <450000000>;

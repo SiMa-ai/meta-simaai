@@ -32,6 +32,17 @@ UBOOT_INITIAL_ENV = "uboot.txt"
 S = "${WORKDIR}/git"
 
 do_deploy:append() {
+   if [ ! -z "${SERIAL_CONSOLES}" ]; then
+	baudrate=`echo "${SERIAL_CONSOLES}" | sed 's/\;.*//'`
+	ttydev=`echo "${SERIAL_CONSOLES}" | sed -e 's/^[0-9]*\;//' -e 's/\;.*//'`
+	cur_baudrate=`grep baudrate ${UBOOT_INITIAL_ENV} | awk -F= '{print $2}'`
+	if [ "${cur_baudrate}" != "${baudrate}" ]; then
+		echo "changing baudrate from ${cur_baudrate} to ${baudrate}"
+		sed -i -e "s/^baudrate\=[0-9]*/baudrate\=$baudrate/g" ${UBOOT_INITIAL_ENV}
+		sed -i -e "s/console=.*/console\=$ttydev,${baudrate}n8/g" ${UBOOT_INITIAL_ENV}
+	fi
+   fi
+
    ${B}/tools/mkimage -C none -A arm -T script -d ${S}/board/sima/${MACHINE}/bootscripts/mmcboot.cmd ${B}/boot.scr.uimg
    ${B}/tools/mkimage -C none -A arm -T script -d ${S}/board/sima/${MACHINE}/bootscripts/netboot.cmd ${B}/netboot.scr.uimg
    ${B}/tools/mkenvimage -s 0x80000 -o uboot.env ${UBOOT_INITIAL_ENV}

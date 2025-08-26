@@ -1,0 +1,3 @@
+KERNEL=="simaai-mem", MODE="0770", OWNER="root", GROUP="sima", TAG+="systemd"
+KERNEL=="m4_lp_mbox", MODE="0770", OWNER="root", GROUP="sima", TAG+="systemd"
+KERNEL=="simaai-mlamem", MODE="0770", OWNER="root", GROUP="sima", TAG+="systemd" RUN+="/usr/bin/set_m4_rproc_file_permissions.sh"

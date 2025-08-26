@@ -6,7 +6,7 @@ software =
 		hardware-compatibility: [ "1.0"];
 				images: (
 					{
-						filename = "simaai-image-palette-davinci.ext4.gz";
+						filename = "simaai-image-palette-davinci.rootfs.ext4.gz";
 						device = "/dev/update_root";
 						type = "raw";
 						compressed = "zlib";
@@ -65,7 +65,7 @@ software =
 		hardware-compatibility: [ "1.0"];
 				images: (
 					{
-						filename = "simaai-image-minimal-davinci.ext4.gz";
+						filename = "simaai-image-minimal-davinci.rootfs.ext4.gz";
 						device = "/dev/update_root";
 						type = "raw";
 						compressed = "zlib";
@@ -124,7 +124,7 @@ software =
 		hardware-compatibility: [ "1.0"];
 				images: (
 					{
-						filename = "simaai-image-diag-davinci.ext4.gz";
+						filename = "simaai-image-diag-davinci.rootfs.ext4.gz";
 						device = "/dev/update_root";
 						type = "raw";
 						compressed = "zlib";
@@ -183,7 +183,7 @@ software =
 		hardware-compatibility: [ "1.0"];
 				images: (
 					{
-						filename = "simaai-image-dev-davinci.ext4.gz";
+						filename = "simaai-image-dev-davinci.rootfs.ext4.gz";
 						device = "/dev/update_root";
 						type = "raw";
 						compressed = "zlib";
@@ -242,7 +242,7 @@ software =
 		hardware-compatibility: [ "1.0"];
 				images: (
 					{
-						filename = "simaai-image-edgematic-davinci.ext4.gz";
+						filename = "simaai-image-edgematic-davinci.rootfs.ext4.gz";
 						device = "/dev/update_root";
 						type = "raw";
 						compressed = "zlib";

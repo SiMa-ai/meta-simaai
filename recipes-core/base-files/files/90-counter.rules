@@ -1,0 +1,1 @@
+SUBSYSTEM=="counter", KERNEL=="counter0", RUN+="/bin/bash -c '/bin/echo 1 > /sys/bus/counter/devices/counter0/count0/enable'"

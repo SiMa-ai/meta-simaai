@@ -23,4 +23,4 @@ PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
 
 EXTRA_IMAGEDEPENDS += "virtual/bootloader"
 
-IMAGE_BOOT_FILES = "${KERNEL_IMAGETYPE};boot-0/ ${KERNEL_IMAGETYPE};boot-1/ ${DEVICETREE_NAME} uboot.env uboot-redund.env boot.scr.uimg;boot-0/ boot.scr.uimg;boot-1/"
+IMAGE_BOOT_FILES = "${KERNEL_IMAGETYPE};boot-0/ ${KERNEL_IMAGETYPE};boot-1/ ${DEVICETREE_NAME} uboot.env uboot-redund.env boot.scr.uimg;boot-0/ boot.scr.uimg;boot-1/ overlays/*;boot-0/ overlays/*;boot-1/"

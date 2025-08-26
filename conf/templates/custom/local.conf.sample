@@ -37,6 +37,8 @@
 # This sets the default machine to be qemux86-64 if no other machine is selected:
 MACHINE ??= "davinci"
 
+# Below enables multiconfig in Yocto to build MLA firmware
+
 #
 # Where to place downloads
 #
@@ -282,3 +284,22 @@ LICENSE_CREATE_PACKAGE = "1"
 
 # Enable Fortran support
 FORTRAN:forcevariable  = ",fortran"
+
+#Ensure meta-simaai has higher priority compared to meta-ai-python
+BBFILE_PRIORITY_meta-simaai = "8"
+BBFILE_PRIORITY_meta-python-ai = "6"
+BBFILE_PRIORITY_clang-revival-layer = "6"
+BBFILE_PRIORITY_clang-layer = "5"
+
+#Disable lapack_%.bbappend from applying since it is causing build error.
+BBMASK += "meta-python-ai/recipes-support/lapack/lapack_%.bbappend"
+
+# Use local mirror
+SOURCE_MIRROR_URL ?= "file:///project/sima/software/yocto_package_repo/"
+INHERIT += "own-mirrors"
+INHERIT:remove = "create-spdx"
+#BB_GENERATE_MIRROR_TARBALLS = "1"
+#BB_NO_NETWORK = "1"
+FORTRAN:forcevariable = ",fortran"
+RUNTIMETARGET:append:pn-gcc-runtime = " libquadmath"
+HOSTTOOLS += "gfortran"

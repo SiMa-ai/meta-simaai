@@ -1,0 +1,97 @@
+From 404f9979439d665095adf320d256b3bfe790643a Mon Sep 17 00:00:00 2001
+From: "gopal.devarapu" <gopal.devarapu@sima.ai>
+Date: Fri, 18 Jul 2025 04:42:15 -0700
+Subject: [PATCH] simaai handler for troot flash
+
+---
+ handlers/Kconfig                    |  6 ++++
+ handlers/Makefile                   |  1 +
+ handlers/simaai-troot-spi-handler.c | 52 +++++++++++++++++++++++++++++
+ 3 files changed, 59 insertions(+)
+ create mode 100644 handlers/simaai-troot-spi-handler.c
+
+diff --git a/handlers/Kconfig b/handlers/Kconfig
+index 152bc080..58a42138 100644
+--- a/handlers/Kconfig
++++ b/handlers/Kconfig
+@@ -325,4 +325,10 @@ config UNIQUEUUID
+ comment "uniqueuuid support needs libblkid"
+ 	depends on !HAVE_LIBBLKID
+ 
++config SIMAAITROOTHANDLER
++       bool "simaaitroothandler"
++       default y
++       help
++         handler to flash simaai's troot image in spi nor flash
++
+ endmenu
+diff --git a/handlers/Makefile b/handlers/Makefile
+index 8490172a..625ac308 100644
+--- a/handlers/Makefile
++++ b/handlers/Makefile
+@@ -30,3 +30,4 @@ obj-$(CONFIG_SWUFORWARDER_HANDLER) += swuforward_handler.o swuforward-ws.o
+ obj-$(CONFIG_UBIVOL)	+= ubivol_handler.o
+ obj-$(CONFIG_UCFWHANDLER)	+= ucfw_handler.o
+ obj-$(CONFIG_DOCKER)	+= docker_handler.o
++obj-$(CONFIG_SIMAAITROOTHANDLER)       += simaai-troot-spi-handler.o
+diff --git a/handlers/simaai-troot-spi-handler.c b/handlers/simaai-troot-spi-handler.c
+new file mode 100644
+index 00000000..03255c59
+--- /dev/null
++++ b/handlers/simaai-troot-spi-handler.c
+@@ -0,0 +1,52 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright SiMa.ai (C) 2025. All rights reserved
++ */
++
++#include <stdio.h>
++#include <sys/stat.h>
++#include <sys/types.h>
++#include <unistd.h>
++#include <sys/ioctl.h>
++#ifdef __FreeBSD__
++#include <sys/disk.h>
++// the ioctls are almost identical except for the name, just alias it
++#define BLKGETSIZE64 DIOCGMEDIASIZE
++#else
++#include <linux/fs.h>
++#endif
++
++
++#include <unistd.h>
++#include <fcntl.h>
++#include <stdlib.h>
++#include <errno.h>
++#include <libgen.h>
++
++#include "swupdate.h"
++#include "handler.h"
++#include "util.h"
++
++#define TROOT_UPGRADE_BIN "troot_upgrade"
++
++void simaai_troot_hpi_handler(void);
++
++static int install_simaai_troot_image(struct img_type *img,
++	void __attribute__ ((__unused__)) *data)
++{
++	int ret = 0;
++
++	ret = system(TROOT_UPGRADE_BIN);
++	if (ret< 0) {
++		ERROR("Error flashing troot into spi-nor flash");
++	}
++
++	return ret;
++}
++
++__attribute__((constructor))
++void simaai_troot_hpi_handler(void)
++{
++	register_handler("simaai_troot_spi", install_simaai_troot_image, FILE_HANDLER, NULL);
++}
++
+-- 
+2.34.1
+

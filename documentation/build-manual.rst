@@ -100,6 +100,15 @@ boards. Steps to flash or load the image will be discussed in a separate documen
 
        git checkout scarthgap-5.0.6
 
+  #. Download Clone meta-python-ai
+     ::
+       git clone https://github.com/zboszor/meta-python-ai.git -b scarthgap
+
+       cd meta-python-ai
+
+       git reset --hard 698c48b2d490fa58643dcbe93a95f62165884712
+
+
   #. Download Clone meta-clang
      ::
        git clone https://github.com/kraj/meta-clang.git -b scarthgap

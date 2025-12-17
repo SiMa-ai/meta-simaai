@@ -7,7 +7,8 @@ SRC_URI += "file://blacklist.conf \
             file://90-counter.rules \
             file://99-simaai-dev.rules \
             file://99-rpmsg.rules \
-            file://phy.conf"
+            file://phy.conf \
+			file://99-isp-3a-app.rules"
 
 do_install:append() {
 	install -d ${D}${sysconfdir}/modprobe.d
@@ -19,6 +20,7 @@ do_install:append() {
 	install -m 0644 90-counter.rules ${D}${sysconfdir}/udev/rules.d/
 	install -m 0644 99-simaai-dev.rules ${D}${sysconfdir}/udev/rules.d/
 	install -m 0644 99-rpmsg.rules ${D}${sysconfdir}/udev/rules.d/
+	install -m 0644 99-isp-3a-app.rules ${D}${sysconfdir}/udev/rules.d/
 }
 
 do_install:append:modalix() {

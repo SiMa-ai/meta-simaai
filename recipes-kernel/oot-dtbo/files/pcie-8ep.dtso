@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2025 SiMa ai
+ *
+ * Overlay for 8-lane PCIe Endpoint
+ */
+
+/dts-v1/;
+/plugin/;
+
+&pcie0_ep {
+        status = "okay";
+};

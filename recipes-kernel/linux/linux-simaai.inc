@@ -10,10 +10,10 @@ COMPATIBLE_MACHINE = "davinci|modalix"
 S = "${WORKDIR}/git"
 
 KERNEL_GIT_BRANCH = "master"
-KERNEL_GIT_URI_HTTP = "git://github.com/SiMa-ai/simaai-linux.git"
-KERNEL_GIT_PROTOCOL = "http"
+KERNEL_GIT_URI_SSH = "git://git@bitbucket.org/sima-ai/simaai-linux.git"
+KERNEL_GIT_PROTOCOL = "ssh"
 SRCREV = "${AUTOREV}"
 
-SRC_URI += "${KERNEL_GIT_URI_HTTP};protocol=${KERNEL_GIT_PROTOCOL};branch=${KERNEL_GIT_BRANCH}"
+SRC_URI += "${KERNEL_GIT_URI_SSH};protocol=${KERNEL_GIT_PROTOCOL};branch=${KERNEL_GIT_BRANCH}"
 
 LINUX_VERSION_EXTENSION ?= ""

@@ -110,7 +110,8 @@ if [ $1 == "postinst" ]; then
         get_update_block_device
 
 	if  [ -x "$(command -v resize2fs)" ]; then
-		resize2fs ${UPDATE_ROOT}
+		echo "INFO: Resizing root filesystem on ${UPDATE_ROOT}..."
+		resize2fs ${UPDATE_ROOT} > /dev/null 2>&1
 	else
 		WARNING !! your rootfs was shrinked, install resize2fs to fix
 	fi
@@ -118,7 +119,33 @@ if [ $1 == "postinst" ]; then
 	#get updated build details
 	get_updated_build_version
 
-	if [  ${install_sdk_version} -ge "170" ]; then
+	if [ ${install_sdk_version} -ge "200" ];then
+		echo "updating required u-boot env parameters for version > 2.0.0"
+		fdt_addr=`(fw_printenv fdt_addr)`
+		if [ ${fdt_addr} != "0x1079000000" ]; then
+			fw_setenv fdt_addr 0x1079000000
+		fi
+		kernel_addr=`(fw_printenv kernel_addr)`
+		if [ ${kernel_addr} != "0x1075000000" ]; then
+			fw_setenv kernel_addr 0x1075000000
+		fi
+		cpio_addr=`(fw_printenv cpio_addr)`
+		if [ ${cpio_addr} != "0x107D000000" ]; then
+			fw_setenv cpio_addr 0x107D000000
+		fi
+		scriptaddr=`(fw_printenv scriptaddr)`
+		if [ ${scriptaddr} != "0x107C000000" ]; then
+			fw_setenv scriptaddr 0x107C000000
+		fi
+		dtbo_addr=`(fw_printenv dtbo_addr)`
+		if [ ${dtbo_addr} != "0x107A000000" ]; then
+			fw_setenv dtbo_addr 0x107A000000
+		fi
+		initrd_high=`(fw_printenv initrd_high)`
+		if [ ${initrd_high} != "0xFFFFFFFFFFFFFFFF" ]; then
+			fw_setenv initrd_high 0xFFFFFFFFFFFFFFFF
+		fi
+	elif [  ${install_sdk_version} = "170" ]; then
 		echo "updating required u-boot env parameters"
 		fdt_addr=`(fw_printenv fdt_addr)`
 		if [ ${fdt_addr} != "0x1184000000" ]; then
@@ -219,10 +246,10 @@ if [ $1 == "postinst" ]; then
 
 	BOOT_DEVICE=${ROOT::-2}
 	echo boot device:${BOOT_DEVICE}
-	parted ${BOOT_DEVICE} toggle ${CURRENT_PART} legacy_boot
-	parted ${BOOT_DEVICE} toggle ${CURRENT_UBOOT_PART} legacy_boot
-	parted ${BOOT_DEVICE} toggle ${UPDATE_PART} legacy_boot
-	parted ${BOOT_DEVICE} toggle ${UPDATE_UBOOT_PART} legacy_boot
+	parted ${BOOT_DEVICE} toggle ${CURRENT_PART} legacy_boot > /dev/null 2>&1
+	parted ${BOOT_DEVICE} toggle ${CURRENT_UBOOT_PART} legacy_boot > /dev/null 2>&1
+	parted ${BOOT_DEVICE} toggle ${UPDATE_PART} legacy_boot > /dev/null 2>&1
+	parted ${BOOT_DEVICE} toggle ${UPDATE_UBOOT_PART} legacy_boot > /dev/null 2>&1
 	fw_setenv upgrade_available 1
 	fw_setenv bootcount 0
     if [ ! -f "${NO_REBOOT_FILE}" ]; then

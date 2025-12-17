@@ -1,0 +1,288 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2025 SiMa ai
+ */
+
+/dts-v1/;
+/plugin/;
+
+&port5 {
+    cam-hog0 {
+        gpio-hog;
+        /* Set port5 gpio6 to GPIO_ACTIVE_HIGH mode */
+        gpios = <6 0>;
+        output-high;
+        line-name = "cam0_powdn";
+    };
+    cam-hog1 {
+        gpio-hog;
+        /* Set port5 gpio7 to GPIO_ACTIVE_HIGH mode */
+        gpios = <7 0>;
+        output-high;
+        line-name = "cam1_powdn";
+    };
+};
+&port6 {
+    cam-hog2 {
+        gpio-hog;
+        /* Set port6 gpio5 to GPIO_ACTIVE_HIGH mode */
+        gpios = <5 0>;
+        output-high;
+        line-name = "cam2_powdn";
+    };
+    cam-hog3 {
+        gpio-hog;
+        /* Set port6 gpio6 to GPIO_ACTIVE_HIGH mode */
+        gpios = <6 0>;
+        output-high;
+        line-name = "cam3_powdn";
+    };
+    cam-len0 {
+	    gpio-hog;
+	    /* Set port6 gpio1 to GPIO_ACTIVE_HIGH mode */
+	    gpios = <1 0>;
+	    output-high;
+	    line-name = "cam1_lensel";
+    };
+    cam-len1 {
+	    gpio-hog;
+	    /* Set port6 gpio4 to GPIO_ACTIVE_HIGH mode */
+	    gpios = <4 0>;
+	    output-high;
+	    line-name = "cam2_lensel";
+    };
+};
+
+/ {
+    fragment@40 {
+        target-path = "/"; /* Root node of the base tree */
+        __overlay__ {
+            imx477_clk_0: csi0_camera-clk {
+                compatible = "fixed-clock";
+                #clock-cells = <0>;
+                clock-frequency = <24000000>;
+            };
+            imx477_clk_1: csi1_camera-clk {
+                compatible = "fixed-clock";
+                #clock-cells = <0>;
+                clock-frequency = <24000000>;
+            };
+            imx477_clk_2: csi2_camera-clk {
+                compatible = "fixed-clock";
+                #clock-cells = <0>;
+                clock-frequency = <24000000>;
+            };
+            imx477_clk_3: csi3_camera-clk {
+                compatible = "fixed-clock";
+                #clock-cells = <0>;
+                clock-frequency = <24000000>;
+            };
+	};
+    };
+};
+
+&i2c52 {
+    status = "okay";
+    clock-frequency = <400000>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+    pca9548: i2c-mux@70 {
+        compatible = "nxp,pca9548";
+	reg = <0x70>;
+	idle-state = <0>;
+        i2c@0 {
+            reg = <0>;
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            i2c52s0: sensor@1a {
+                compatible = "sony,imx477";
+                reg = <0x1a>;
+                clocks = <&imx477_clk_0>;
+                clock-names = "xclk";
+
+                i2c52p0: port@1 {
+                    camera_0: endpoint@0 {
+                        remote-endpoint = <&w0vc0>;
+                        data-lanes = <1 2>;
+                        clock-lanes = <0>;
+                        clock-continuous;
+                        link-frequencies = /bits/ 64 <450000000>;
+                    };
+                };
+            };
+        };
+        i2c@1 {
+            reg = <1>;
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            i2c52s1: sensor@1a {
+                compatible = "sony,imx477";
+                reg = <0x1a>;
+                clocks = <&imx477_clk_1>;
+                clock-names = "xclk";
+
+                i2c52p1: port@1 {
+                    camera_1: endpoint@0 {
+                        remote-endpoint = <&w1vc0>;
+                        data-lanes = <1 2>;
+                        clock-lanes = <0>;
+                        clock-continuous;
+                        link-frequencies = /bits/ 64 <450000000>;
+                     };
+                  };
+               };
+            };
+        i2c@2 {
+            reg = <2>;
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            i2c52s2: sensor@1a {
+                compatible = "sony,imx477";
+                reg = <0x1a>;
+                clocks = <&imx477_clk_2>;
+                clock-names = "xclk";
+
+                i2c52p2: port@1 {
+                    camera_2: endpoint@0 {
+                        remote-endpoint = <&w2vc0>;
+                        data-lanes = <1 2>;
+                        clock-lanes = <0>;
+                        clock-continuous;
+                        link-frequencies = /bits/ 64 <450000000>;
+                     };
+                  };
+               };
+            };
+        i2c@3 {
+            reg = <3>;
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            i2c52s3: sensor@1a {
+                compatible = "sony,imx477";
+                reg = <0x1a>;
+                clocks = <&imx477_clk_3>;
+                clock-names = "xclk";
+
+                i2c52p3: port@1 {
+                    camera_3: endpoint@0 {
+                        remote-endpoint = <&w3vc0>;
+                        data-lanes = <1 2>;
+                        clock-lanes = <0>;
+                        clock-continuous;
+                        link-frequencies = /bits/ 64 <450000000>;
+                     };
+                  };
+               };
+            };
+      };
+};
+
+&axi_vdma_vis0 { status = "okay"; };
+&axi_vdma_vis1 { status = "okay"; };
+&axi_vdma_vis2 { status = "okay"; };
+&axi_vdma_vis3 { status = "okay"; };
+
+&csi0 {
+    status = "okay";
+    isp-connected = <1>;
+        csi0p0: port@1 {
+                reg = <1>;
+                w0vc0_to_isp0: endpoint@1 {
+                        remote-endpoint = <&isp0_to_w0vc0>;
+                        data-lanes = <1 2>;
+                        clock-lanes = <1>;
+                        clock-continuous;
+                        link-frequencies = /bits/ 64 <450000000>;
+                };
+        };
+};
+&csi1 {
+    status = "okay";
+    isp-connected = <1>;
+        csi1p0: port@1 {
+            reg = <1>;
+                w1vc0_to_isp1: endpoint@1 {
+                    remote-endpoint = <&isp1_to_w1vc0>;
+                    data-lanes = <1 2>;
+                    clock-lanes = <1>;
+                    clock-continuous;
+                    link-frequencies = /bits/ 64 <450000000>;
+                               };
+                };
+};
+&csi2 {
+    status = "okay";
+    isp-connected = <1>;
+        csi2p0: port@1 {
+            reg = <1>;
+                w2vc0_to_isp2: endpoint@1 {
+                    remote-endpoint = <&isp2_to_w2vc0>;
+                    data-lanes = <1 2>;
+                    clock-lanes = <1>;
+                    clock-continuous;
+                    link-frequencies = /bits/ 64 <450000000>;
+                               };
+                };
+};
+&csi3 {
+    status = "okay";
+    isp-connected = <1>;
+        csi3p0: port@1 {
+            reg = <1>;
+                w3vc0_to_isp3: endpoint@1 {
+                    remote-endpoint = <&isp3_to_w3vc0>;
+                    data-lanes = <1 2>;
+                    clock-lanes = <1>;
+                    clock-continuous;
+                    link-frequencies = /bits/ 64 <450000000>;
+                               };
+                };
+};
+
+&isp {
+    status = "okay";
+    ports {
+	#address-cells = <1>;
+	#size-cells = <0>;
+                isp0p0: port@0 {
+                        reg = <0>;
+                        isp0_to_w0vc0: endpoint@0 {
+                                remote-endpoint = <&w0vc0_to_isp0>;
+                        };
+                        w0vc0: endpoint@1 {
+                                remote-endpoint = <&camera_0>;
+                        };
+                };
+                isp1p0: port@1 {
+                    reg = <1>;
+                        isp1_to_w1vc0: endpoint@0 {
+                            remote-endpoint = <&w1vc0_to_isp1>;
+                                       };
+                        w1vc0: endpoint@1 {
+                            remote-endpoint = <&camera_1>;
+			};
+		};
+                isp2p0: port@2 {
+                    reg = <2>;
+                        isp2_to_w2vc0: endpoint@0 {
+                            remote-endpoint = <&w2vc0_to_isp2>;
+                                       };
+                        w2vc0: endpoint@1 {
+                            remote-endpoint = <&camera_2>;
+			};
+                };
+               isp3p0: port@3 {
+                    reg = <3>;
+                        isp3_to_w3vc0: endpoint@0 {
+                            remote-endpoint = <&w3vc0_to_isp3>;
+                                       };
+                        w3vc0: endpoint@1 {
+                            remote-endpoint = <&camera_3>;
+			};
+                };
+        };
+};

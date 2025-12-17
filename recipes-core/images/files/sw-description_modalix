@@ -41,6 +41,30 @@ software =
 						filesystem = "vfat";
 					},
 					{
+						filename = "modalix-hhhl_v2.dtb";
+						path = "update/modalix-hhhl_v2.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-hhhl_1r.dtb";
+						path = "update/modalix-hhhl_1r.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som.dtb";
+						path = "update/modalix-som.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_8g.dtb";
+						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "boot.scr.uimg";
 						path = "update/boot.scr.uimg"
 						device = "/dev/update_kernel";
@@ -51,6 +75,88 @@ software =
 				scripts: (
 					{
 						filename = "update_modalix.sh";
+						type = "shellscript";
+					}
+				);
+
+	};
+	simaai-image-palette-full = {
+		hardware-compatibility: [ "1.0"];
+				images: (
+					{
+						filename = "simaai-image-palette-modalix.rootfs.ext4.gz";
+						device = "/dev/update_root";
+						type = "raw";
+						compressed = "zlib";
+					},
+					{
+						filename = "u-boot.bin";
+						device = "/dev/update_uboot";
+						type = "raw";
+					}
+				);
+				files: (
+					{
+						filename = "Image";
+						path = "update/Image"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+						#properties: {
+							#create-destination = "true";
+							#atomic-install = "true";
+						#}
+					},
+					{
+						filename = "modalix-dvt.dtb";
+						path = "update/modalix-dvt.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-hhhl.dtb";
+						path = "update/modalix-hhhl.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-hhhl_v2.dtb";
+						path = "update/modalix-hhhl_v2.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-hhhl_1r.dtb";
+						path = "update/modalix-hhhl_1r.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som.dtb";
+						path = "update/modalix-som.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_8g.dtb";
+						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "boot.scr.uimg";
+						path = "update/boot.scr.uimg"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+@DTBO_ENTRIES@,
+					{
+						filename = "troot_blob.be";
+						type = "simaai_troot_spi";
+					}
+				);
+				scripts: (
+					{
+						filename = "update_modalix_full.sh";
 						type = "shellscript";
 					}
 				);
@@ -91,6 +197,30 @@ software =
 					{
 						filename = "modalix-hhhl.dtb";
 						path = "update/modalix-hhhl.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-hhhl_v2.dtb";
+						path = "update/modalix-hhhl_v2.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-hhhl_1r.dtb";
+						path = "update/modalix-hhhl_1r.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som.dtb";
+						path = "update/modalix-som.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_8g.dtb";
+						path = "update/modalix-som_8g.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},
@@ -149,6 +279,30 @@ software =
 						filesystem = "vfat";
 					},
 					{
+						filename = "modalix-hhhl_v2.dtb";
+						path = "update/modalix-hhhl_v2.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-hhhl_1r.dtb";
+						path = "update/modalix-hhhl_1r.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som.dtb";
+						path = "update/modalix-som.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_8g.dtb";
+						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "boot.scr.uimg";
 						path = "update/boot.scr.uimg"
 						device = "/dev/update_kernel";
@@ -199,6 +353,30 @@ software =
 					{
 						filename = "modalix-hhhl.dtb";
 						path = "update/modalix-hhhl.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-hhhl_v2.dtb";
+						path = "update/modalix-hhhl_v2.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-hhhl_1r.dtb";
+						path = "update/modalix-hhhl_1r.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som.dtb";
+						path = "update/modalix-som.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_8g.dtb";
+						path = "update/modalix-som_8g.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},
@@ -257,56 +435,26 @@ software =
 						filesystem = "vfat";
 					},
 					{
-						filename = "boot.scr.uimg";
-						path = "update/boot.scr.uimg"
-						device = "/dev/update_kernel";
-						filesystem = "vfat";
-					},
-@DTBO_ENTRIES@
-				);
-				scripts: (
-					{
-						filename = "update_modalix.sh";
-						type = "shellscript";
-					}
-				);
-
-	};
-	simaai-image-graphics = {
-		hardware-compatibility: [ "1.0"];
-				images: (
-					{
-						filename = "simaai-image-graphics-modalix.rootfs.ext4.gz";
-						device = "/dev/update_root";
-						type = "raw";
-						compressed = "zlib";
-					},
-					{
-						filename = "u-boot.bin";
-						device = "/dev/update_uboot";
-						type = "raw";
-					}
-				);
-				files: (
-					{
-						filename = "Image";
-						path = "update/Image"
-						device = "/dev/update_kernel";
-						filesystem = "vfat";
-						#properties: {
-							#create-destination = "true";
-							#atomic-install = "true";
-						#}
-					},
-					{
-						filename = "modalix-dvt.dtb";
-						path = "update/modalix-dvt.dtb"
+						filename = "modalix-hhhl_v2.dtb";
+						path = "update/modalix-hhhl_v2.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},
 					{
-						filename = "modalix-hhhl.dtb";
-						path = "update/modalix-hhhl.dtb"
+						filename = "modalix-hhhl_1r.dtb";
+						path = "update/modalix-hhhl_1r.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som.dtb";
+						path = "update/modalix-som.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_8g.dtb";
+						path = "update/modalix-som_8g.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},

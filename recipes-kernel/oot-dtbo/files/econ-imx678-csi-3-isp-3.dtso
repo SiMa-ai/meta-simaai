@@ -1,0 +1,120 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2024 SiMa ai
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@10 {
+		target-path = "/"; /* Root node of the base tree */
+		__overlay__ {
+			imx678_vana_3: csi3_fixedregulator@0 {
+				compatible = "regulator-fixed";
+				regulator-name = "imx678_vana_3";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				enable-active-high;
+				startup-delay-us = <300000>;
+				regulator-always-on;
+			};
+			imx678_vdig_3: csi3_fixedregulator@1 {
+				compatible = "regulator-fixed";
+				regulator-name = "imx678_vdig_3";
+				regulator-min-microvolt = <110000>;
+				regulator-max-microvolt = <110000>;
+				regulator-always-on;
+			};
+			imx678_vddl_3: csi3_fixedregulator@2 {
+				compatible = "regulator-fixed";
+				regulator-name = "imx678_vddl_3";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				regulator-always-on;
+			};
+			imx678_clk_3: csi3_camera-clk {
+				compatible = "fixed-clock";
+				#clock-cells = <0>;
+				clock-frequency = <24000000>;
+			};
+		};
+	};
+};
+
+&i2c03 {
+	status = "okay";
+	clock-frequency = <400000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+	tca6424_camera_3: tca6424@22 {
+		compatible = "ti,tca6424";
+		gpio-controller;
+		#gpio-cells = <2>;
+		reg = <0x22>;
+		status = "okay";
+	};
+	i2c03s0: sensor@42 {
+		compatible = "sony,imx678";
+		reg = <0x42>;
+		clocks = <&imx678_clk_3>;
+		clock-names = "xclk";
+		VANA-supply = <&imx678_vana_3>;
+		VDIG-supply = <&imx678_vdig_3>;
+		VDDL-supply = <&imx678_vddl_3>;
+		reset-gpios = <&tca6424_camera_3 0 0>;
+		boot-gpios = <&tca6424_camera_3 6 0>;
+		camera_mipi_lanes = <4>;
+		cam_fw_name = "imx678_cam_fw.bin";
+		i2c03p0: port@1 {
+			camera_3: endpoint@0 {
+				remote-endpoint = <&w3vc0>;
+				data-lanes = <1 2 3 4>;
+				clock-lanes = <0>;
+				clock-continuous;
+				link-frequencies = /bits/ 64 <450000000>;
+			};
+		};
+	};
+};
+
+&mipi_dphy_rx3 {
+	snps,dphy-frequency = <450000000>;
+};
+
+&axi_vdma_vis3 {
+	status = "okay";
+};
+
+&csi3 {
+	status = "okay";
+	isp-connected = <1>;
+	csi3p0: port@1 {
+		reg = <1>;
+		w3vc0_to_isp3: endpoint@1 {
+			remote-endpoint = <&isp3_to_w3vc0>;
+			data-lanes = <1 2 3 4>;
+			clock-lanes = <1>;
+			clock-continuous;
+			link-frequencies = /bits/ 64 <450000000>;
+		};
+	};
+};
+
+&isp {
+	status = "okay";
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		isp3p0: port@3 {
+			reg = <3>;
+			isp3_to_w3vc0: endpoint@0 {
+				remote-endpoint = <&w3vc0_to_isp3>;
+			};
+			w3vc0: endpoint@1 {
+				remote-endpoint = <&camera_3>;
+				sensor-id = <2>;
+			};
+		};
+	};
+};

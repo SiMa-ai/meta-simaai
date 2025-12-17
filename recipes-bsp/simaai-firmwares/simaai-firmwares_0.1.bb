@@ -12,21 +12,26 @@ SRC_URI += " \
 	file://mla_init_davinci.lm \
 	file://mla_init_modalix.elf \
 	file://renesas_usb_fw.mem \
-	file://x33x0fw.hdr"
+	file://x33x0fw.hdr \
+	file://imx678_cam_fw.bin"
+
+inherit useradd
+USERADD_PACKAGES = "${PN}"
+GROUPADD_PARAM:${PN} = "-r sima"
 
 do_install:append() {
-        install -d ${D}${base_libdir}/firmware
-        install -d ${D}${bindir}/
+	install -d ${D}${base_libdir}/firmware
+	install -d -m 0770 -g sima ${D}${base_libdir}/firmware/pt_builds
+	install -d ${D}${bindir}/
 	install -m 0644 ${THISDIR}/files/davinci-mla_driver.elf ${D}${base_libdir}/firmware/
 	install -m 0644 ${THISDIR}/files/davinci-mla_driver.bin ${D}${base_libdir}/firmware/
 	install -m 0644 ${THISDIR}/files/modalix-mla_driver.elf ${D}${base_libdir}/firmware/
 	install -m 0644 ${THISDIR}/files/modalix-mla_driver.bin ${D}${base_libdir}/firmware/
-	install -m 0644 ${THISDIR}/files/davinci-evxx-fw ${D}${base_libdir}/firmware/
-	install -m 0644 ${THISDIR}/files/modalix-evxx-fw ${D}${base_libdir}/firmware/
 	install -m 0755 ${WORKDIR}/mla_init_davinci.lm ${D}${bindir}/
 	install -m 0755 ${WORKDIR}/mla_init_modalix.elf ${D}${bindir}/
 	install -m 0644 ${WORKDIR}/renesas_usb_fw.mem ${D}${base_libdir}/firmware/
 	install -m 0644 ${WORKDIR}/x33x0fw.hdr ${D}${base_libdir}/firmware/
+	install -m 0644 ${WORKDIR}/imx678_cam_fw.bin ${D}${base_libdir}/firmware/
 	install -m 0644 ${THISDIR}/files/davinci-cvu-fw ${D}${base_libdir}/firmware/
 	install -m 0644 ${THISDIR}/files/modalix-cvu-fw ${D}${base_libdir}/firmware/
 }

@@ -1,0 +1,51 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2024 SiMa ai
+ */
+
+/dts-v1/;
+/plugin/;
+
+&axi_vdma_vis0 {
+	status = "okay";
+};
+
+&isp {
+	status = "okay";
+	isp0p0: port@1 {
+		isp0_to_vc0: endpoint@0 {
+			remote-endpoint = <&vc0_to_isp0>;
+		};
+	};
+};
+
+&virtual_camera {
+	status = "okay";
+	vc0p0: port@1 {
+		virtual_camera0: endpoint@0 {
+			remote-endpoint = <&vc0>;
+		};
+	};
+};
+
+&mipi_dphy_rx0 {
+	simaai,mipi-generator = <1>;
+};
+
+&csi0 {
+	status = "okay";
+	isp-connected = <1>;
+	csi0p0: port@1 {
+		reg = <1>;
+		vc0: endpoint@0 {
+			remote-endpoint = <&virtual_camera0>;
+			data-lanes = <1 2 3 4>;
+			clock-lanes = <0>;
+			clock-continuous;
+			link-frequencies = /bits/ 64 <1250000000>;
+		};
+		vc0_to_isp0: endpoint@1 {
+			remote-endpoint = <&isp0_to_vc0>;
+		};
+	};
+};

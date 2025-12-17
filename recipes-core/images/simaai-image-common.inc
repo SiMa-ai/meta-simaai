@@ -8,14 +8,15 @@ COMPATIBLE_MACHINE = "davinci|modalix"
 inherit extrausers image-buildinfo
 
 CORE_IMAGE_EXTRA_INSTALL += "sudo nfs-utils-client u-boot-fw-utils swupdate e2fsprogs-resize2fs \
-                             simaai-firmwares simaai-drivers parted procps rsyslog openssh man-db \
+                             simaai-firmwares parted procps rsyslog openssh man-db \
                              tzdata-core tzdata-misc tzdata-posix tzdata-right tzdata-africa \
                              tzdata-americas tzdata-antarctica tzdata-arctic tzdata-asia \
-                             tzdata-atlantic tzdata-australia tzdata-europe tzdata-pacific  \
-                             kernel-modules libuio"
+                             tzdata-atlantic tzdata-australia tzdata-europe tzdata-pacific \
+                             kernel-modules oot-dtbo libuio"
 
 EXTRA_USERS_PARAMS += "groupadd sima; \
-                       useradd -p '$(cat ${THISDIR}/files/sima.pwd)' -g sima -G sudo sima; \
+                       groupadd -f tracing; \
+                       useradd -p '$(cat ${THISDIR}/files/sima.pwd)' -g sima -G sudo,audio,video,tracing sima; \
                        usermod -p '$(cat ${THISDIR}/files/root.pwd)' root; \
                        usermod -a -G sima root;"
 
@@ -41,4 +42,4 @@ IMAGE_BUILDINFO_VARS += "MACHINE DATE TIME SIMA_BUILD_VERSION"
 
 IMAGE_PREPROCESS_COMMAND =+ "get_sima_build_version;"
 
-ROOTFS_POSTPROCESS_COMMAND += "update_sudoers;"
+ROOTFS_POSTPROCESS_COMMAND += "update_sudoers;write_package_manifest; license_create_manifest;"

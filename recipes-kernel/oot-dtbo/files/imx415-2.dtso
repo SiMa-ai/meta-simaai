@@ -1,0 +1,34 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2025 SiMa ai
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+    fragment@10 {
+        target-path = "/"; /* Root node of the base tree */
+        __overlay__ {
+            imx415_clk_2: csi2_camera-clk {
+                compatible = "fixed-clock";
+                #clock-cells = <0>;
+                clock-frequency = <37125000>;
+            };
+        };
+    };
+};
+
+&i2c02 {
+	status = "okay";
+	clock-frequency = <400000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+        i2c02s0: sensor@1a {
+            compatible = "sony,imx415";
+            reg = <0x1a>;
+            clocks = <&imx415_clk_2>;
+            clock-names = "inck";
+        };
+};

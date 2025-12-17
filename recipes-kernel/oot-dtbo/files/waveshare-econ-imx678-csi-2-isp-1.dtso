@@ -1,0 +1,148 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2025 SiMa ai
+ */
+
+/dts-v1/;
+/plugin/;
+
+&port5 {
+	cam-hog1 {
+		gpio-hog;
+		/* Set port5 gpio7 to GPIO_ACTIVE_HIGH mode */
+		gpios = <7 0>;
+		output-high;
+		line-name = "cam1_powdn";
+	};
+};
+
+&i2c52 {
+    status = "okay";
+    clock-frequency = <400000>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+};
+
+/ {
+    fragment@10 {
+        target-path = "/"; /* Root node of the base tree */
+        __overlay__ {
+			imx678_vana_2: csi2_fixedregulator@0 {
+				compatible = "regulator-fixed";
+				regulator-name = "imx678_vana_2";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				enable-active-high;
+				startup-delay-us = <300000>;
+				regulator-always-on;
+			};
+			imx678_vdig_2: csi2_fixedregulator@1 {
+				compatible = "regulator-fixed";
+				regulator-name = "imx678_vdig_2";
+				regulator-min-microvolt = <110000>;
+				regulator-max-microvolt = <110000>;
+				regulator-always-on;
+			};
+			imx678_vddl_2: csi2_fixedregulator@2 {
+				compatible = "regulator-fixed";
+				regulator-name = "imx678_vddl_2";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+				regulator-always-on;
+			};
+			imx678_clk_2: csi2_camera-clk {
+				compatible = "fixed-clock";
+				#clock-cells = <0>;
+				clock-frequency = <24000000>;
+			};
+        };
+    };
+
+    fragment@11 {
+        target-path = "/"; /* Root node of the base tree */
+        __overlay__ {
+			i2cmux@0 {
+				compatible = "i2c-mux-gpio";
+				i2c-parent = <&i2c52>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				/* Set port6 gpio6 to GPIO_ACTIVE_LOW mode */
+				mux-gpios = <&port6 6 0>;
+				i2c@1 {
+					reg = <1>;
+					#address-cells = <1>;
+					#size-cells = <0>;
+					tca6424_camera_2: tca6424@22 {
+						compatible = "ti,tca6424";
+						gpio-controller;
+						#gpio-cells = <2>;
+						reg = <0x22>;
+						status = "okay";
+					};
+					i2c52s2: sensor@42 {
+						compatible = "sony,imx678";
+						reg = <0x42>;
+						clocks = <&imx678_clk_2>;
+						clock-names = "xclk";
+						VANA-supply = <&imx678_vana_2>;
+						VDIG-supply = <&imx678_vdig_2>;
+						VDDL-supply = <&imx678_vddl_2>;
+						reset-gpios = <&tca6424_camera_2 0 0>;
+						boot-gpios = <&tca6424_camera_2 6 0>;
+						camera_mipi_lanes = <2>;
+						cam_fw_name = "imx678_cam_fw.bin";
+						i2c52p2: port@1 {
+							camera_2: endpoint@0 {
+								remote-endpoint = <&w2vc0>;
+								data-lanes = <1 2>;
+								clock-lanes = <0>;
+								clock-continuous;
+								link-frequencies = /bits/ 64 <450000000>;
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+
+&mipi_dphy_rx2 {
+	snps,dphy-frequency = <1040000000>;
+};
+
+&axi_vdma_vis2 { status = "okay"; };
+
+&csi2 {
+	status = "okay";
+	isp-connected = <1>;
+	csi2p0: port@1 {
+		reg = <1>;
+		w2vc0_to_isp1: endpoint@1 {
+			remote-endpoint = <&isp1_to_w2vc0>;
+			data-lanes = <1 2>;
+			clock-lanes = <1>;
+			clock-continuous;
+			link-frequencies = /bits/ 64 <450000000>;
+		};
+	};
+};
+
+&isp {
+	status = "okay";
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		isp1p0: port@2 {
+			reg = <1>;
+			isp1_to_w2vc0: endpoint@0 {
+				remote-endpoint = <&w2vc0_to_isp1>;
+				dma-index = <2>;
+			};
+			w2vc0: endpoint@1 {
+				remote-endpoint = <&camera_2>;
+				sensor-id = <2>;
+			};
+		};
+	};
+};

@@ -6,8 +6,8 @@ DEPENDS += "dtc-native gnutls-native"
 PROVIDES += "u-boot"
 ARCH = "arm64"
 
-UBOOT_GIT_URI = "git://github.com/SiMa-ai/sima-ai-uboot.git"
-UBOOT_GIT_PROTOCOL = "http"
+UBOOT_GIT_URI = "git://git@bitbucket.org/sima-ai/sima-ai-uboot.git"
+UBOOT_GIT_PROTOCOL = "ssh"
 
 UBOOT_BRANCH = "master"
 SRC_URI = "${UBOOT_GIT_URI};protocol=${UBOOT_GIT_PROTOCOL};branch=${UBOOT_BRANCH}"
@@ -27,26 +27,41 @@ EXTRA_OEMAKE += "DTC_FLAGS=-@"
 # before main cosole initialization.
 # Please enable debug UART if you really sure you need it.
 # SRC_URI += "file://debug_uart_davini.cfg"
-SRC_URI:append:modalix = " file://debug_uart_modalix.cfg"
+
+python __anonymous() {
+    machine = d.getVar('MACHINE')
+    if machine == "davinci":
+        bb.note("Building uboot.bin for davinci")
+        return
+
+    zebu = d.getVar('ZEBU') or "0"
+    if zebu == "1":
+        bb.note("Building uboot.bin for Zebu")
+        d.appendVar("SRC_URI", " file://debug_uart_modalix_zebu.cfg")
+    else:
+        bb.note("Building uboot.bin for SoC")
+        d.appendVar("SRC_URI", " file://debug_uart_modalix.cfg")
+}
+
 UBOOT_INITIAL_ENV = "uboot.txt"
 S = "${WORKDIR}/git"
 
 do_deploy:append() {
-   if [ ! -z "${SERIAL_CONSOLES}" ]; then
-	baudrate=`echo "${SERIAL_CONSOLES}" | sed 's/\;.*//'`
-	ttydev=`echo "${SERIAL_CONSOLES}" | sed -e 's/^[0-9]*\;//' -e 's/\;.*//'`
-	cur_baudrate=`grep baudrate ${UBOOT_INITIAL_ENV} | awk -F= '{print $2}'`
-	if [ "${cur_baudrate}" != "${baudrate}" ]; then
-		echo "changing baudrate from ${cur_baudrate} to ${baudrate}"
-		sed -i -e "s/^baudrate\=[0-9]*/baudrate\=$baudrate/g" ${UBOOT_INITIAL_ENV}
-		sed -i -e "s/console=.*/console\=$ttydev,${baudrate}n8/g" ${UBOOT_INITIAL_ENV}
-	fi
-   fi
+    if [ ! -z "${SERIAL_CONSOLES}" ]; then
+        baudrate=`echo "${SERIAL_CONSOLES}" | sed 's/\;.*//'`
+        ttydev=`echo "${SERIAL_CONSOLES}" | sed -e 's/^[0-9]*\;//' -e 's/\;.*//'`
+        cur_baudrate=`grep baudrate ${UBOOT_INITIAL_ENV} | awk -F= '{print $2}'`
+        if [ "${cur_baudrate}" != "${baudrate}" ]; then
+            echo "changing baudrate from ${cur_baudrate} to ${baudrate}"
+            sed -i -e "s/^baudrate\=[0-9]*/baudrate\=$baudrate/g" ${UBOOT_INITIAL_ENV}
+            sed -i -e "s/console=.*/console\=$ttydev,${baudrate}n8/g" ${UBOOT_INITIAL_ENV}
+        fi
+    fi
 
-   ${B}/tools/mkimage -C none -A arm -T script -d ${S}/board/sima/${MACHINE}/bootscripts/mmcboot.cmd ${B}/boot.scr.uimg
-   ${B}/tools/mkimage -C none -A arm -T script -d ${S}/board/sima/${MACHINE}/bootscripts/netboot.cmd ${B}/netboot.scr.uimg
-   ${B}/tools/mkenvimage -s 0x80000 -o uboot.env ${UBOOT_INITIAL_ENV}
-   ${B}/tools/mkenvimage -r -s 0x80000 -o uboot-redund.env ${UBOOT_INITIAL_ENV}
-   install -D -m 644 ${B}/boot.scr.uimg ${DEPLOYDIR}/
-   install -D -m 644 ${B}/netboot.scr.uimg ${DEPLOYDIR}/
+    ${B}/tools/mkimage -C none -A arm -T script -d ${S}/board/sima/${MACHINE}/bootscripts/mmcboot.cmd ${B}/boot.scr.uimg
+    ${B}/tools/mkimage -C none -A arm -T script -d ${S}/board/sima/${MACHINE}/bootscripts/netboot.cmd ${B}/netboot.scr.uimg
+    ${B}/tools/mkenvimage -s 0x80000 -o uboot.env ${UBOOT_INITIAL_ENV}
+    ${B}/tools/mkenvimage -r -s 0x80000 -o uboot-redund.env ${UBOOT_INITIAL_ENV}
+    install -D -m 644 ${B}/boot.scr.uimg ${DEPLOYDIR}/
+    install -D -m 644 ${B}/netboot.scr.uimg ${DEPLOYDIR}/
 }

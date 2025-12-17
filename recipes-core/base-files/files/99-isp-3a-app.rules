@@ -1,0 +1,2 @@
+SUBSYSTEM=="misc", KERNEL=="isp_control", OWNER="root", GROUP="sima"
+SUBSYSTEM=="misc", KERNEL=="isp_sbuf*", OWNER="root", GROUP="sima"

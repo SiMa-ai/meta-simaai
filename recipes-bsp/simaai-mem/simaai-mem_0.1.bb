@@ -8,11 +8,11 @@ DEPENDS += "virtual/kernel"
 PROVIDES += "simaai-mem"
 ARCH = "arm64"
 
-SIMAAI_MEM_GIT_URI = "git://git@bitbucket.org/sima-ai/simaai-memory-lib.git"
+SIMAAI_MEM_GIT_URI = "git://git@github.com/SiMa-ai/simaai-memory-lib.git"
 SIMAAI_MEM_GIT_PROTOCOL = "ssh"
 SIMAAI_MEM_BRANCH = "master"
 SRC_URI = "${SIMAAI_MEM_GIT_URI};protocol=${SIMAAI_MEM_GIT_PROTOCOL};branch=${SIMAAI_MEM_BRANCH}"
-SRCREV = "${AUTOREV}"
+SRCREV = "f3ce68de055906b180d181becdda40022df83d88"
 
 S = "${WORKDIR}/git"
 

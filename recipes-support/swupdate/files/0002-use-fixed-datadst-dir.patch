@@ -1,0 +1,86 @@
+From 642b284fb7752a7a01113ff9aa8c4c42b5d76419 Mon Sep 17 00:00:00 2001
+From: "gopal.devarapu" <gopal.devarapu@sima.ai>
+Date: Fri, 18 Jul 2025 02:23:57 -0700
+Subject: [PATCH] use fixed datadst dir
+
+---
+ Kconfig     |  4 ++++
+ core/util.c | 26 +++++++++++++++++++++++++-
+ 2 files changed, 29 insertions(+), 1 deletion(-)
+
+diff --git a/Kconfig b/Kconfig
+index 79237bf5..fb6d9d19 100644
+--- a/Kconfig
++++ b/Kconfig
+@@ -129,6 +129,10 @@ menu "SWUpdate Settings"
+ 
+ menu "General Configuration"
+ 
++config FIXED_DATADST_DIR
++	bool
++	default y
++
+ config CURL
+ 	bool
+ 	default n
+diff --git a/core/util.c b/core/util.c
+index 32104279..16eef00a 100644
+--- a/core/util.c
++++ b/core/util.c
+@@ -883,6 +883,27 @@ char *swupdate_temporary_mount(tmp_mountpoint_t type, const char *device, const
+ 	}
+ 
+ 	dir = mount_points[type];
++#ifdef CONFIG_FIXED_DATADST_DIR
++	// Set a fixed directory instead of a random one
++	if (asprintf(&mountpoint, "%s%s", get_tmpdir(), dir) == -1) {
++		ERROR("Unable to allocate memory");
++		return NULL;
++	}
++
++	if (access(mountpoint, F_OK) != 0) {
++		if (mkdir(mountpoint, 0755) != 0) {
++			ERROR( "Failed to create directory %s: %s\n", mountpoint, strerror(errno));
++			return NULL;  // or handle error
++		}
++	}
++
++	if (swupdate_mount(device, mountpoint, fstype)) {
++		TRACE("Device %s with filesystem %s cannot be mounted: %s",
++			device, fstype, strerror(errno));
++		free(mountpoint);
++		return NULL;
++	}
++#else
+ 	if (asprintf(&mountpoint, "%s%sXXXXXX", get_tmpdir(), dir) == -1) {
+ 		ERROR("Unable to allocate memory");
+ 		return NULL;
+@@ -904,6 +925,8 @@ char *swupdate_temporary_mount(tmp_mountpoint_t type, const char *device, const
+ 		return NULL;
+ 	}
+ 
++#endif
++
+ 	return mountpoint;
+ }
+ 
+@@ -914,6 +937,7 @@ int swupdate_temporary_umount(char *mountpoint)
+ 		TRACE("Unable to unmount %s: %s", mountpoint, strerror(errno));
+ 		ret = -EFAULT;
+ 	}
++#ifndef CONFIG_FIXED_DATADST_DIR
+ 	if (ret == 0 && rmdir(mountpoint) == -1) {
+ 		if (errno != EROFS) {
+ 			TRACE("Unable to remove directory %s: %s", mountpoint, strerror(errno));
+@@ -921,7 +945,7 @@ int swupdate_temporary_umount(char *mountpoint)
+ 		}
+ 	}
+ 	free(mountpoint);
+-
++#endif
+ 	return ret;
+ }
+ 
+-- 
+2.34.1
+

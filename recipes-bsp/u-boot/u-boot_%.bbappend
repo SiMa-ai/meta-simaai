@@ -6,12 +6,12 @@ DEPENDS += "dtc-native gnutls-native"
 PROVIDES += "u-boot"
 ARCH = "arm64"
 
-UBOOT_GIT_URI = "git://git@bitbucket.org/sima-ai/sima-ai-uboot.git"
+UBOOT_GIT_URI = "git://github.com/SiMa-ai/sima-ai-uboot.git"
 UBOOT_GIT_PROTOCOL = "ssh"
 
 UBOOT_BRANCH = "master"
 SRC_URI = "${UBOOT_GIT_URI};protocol=${UBOOT_GIT_PROTOCOL};branch=${UBOOT_BRANCH}"
-SRCREV = "${AUTOREV}"
+SRCREV = "93961411fa44a5b90dca02eb55fd87d33043ad2a"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 EXTRA_OEMAKE += "DTC_FLAGS=-@"

@@ -16,6 +16,7 @@ KCONFIG_MODE = "--alldefconfig"
 #Use below when we have multiple kernel versions
 PREFERRED_VERSION_linux-simaai ?= "6.1%"
 KERNEL_IMAGETYPE = "Image"
+KERNEL_SECIMAGETYPE = "Image.enc"
 
 #U-BOOT specific config
 PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
@@ -23,4 +24,4 @@ PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
 
 EXTRA_IMAGEDEPENDS += "virtual/bootloader"
 
-IMAGE_BOOT_FILES = "${KERNEL_IMAGETYPE};boot-0/ ${KERNEL_IMAGETYPE};boot-1/ ${DEVICETREE_NAME} uboot.env uboot-redund.env boot.scr.uimg;boot-0/ boot.scr.uimg;boot-1/ overlays/*;boot-0/ overlays/*;boot-1/"
+IMAGE_BOOT_FILES = "${KERNEL_IMAGETYPE};boot-0/ ${KERNEL_IMAGETYPE};boot-1/ ${KERNEL_SECIMAGETYPE};boot-0/ ${KERNEL_SECIMAGETYPE};boot-1/ ${DEVICETREE_NAME} uboot.env uboot-redund.env boot.scr.uimg;boot-0/ boot.scr.uimg;boot-1/ overlays/*;boot-0/ overlays/*;boot-1/"

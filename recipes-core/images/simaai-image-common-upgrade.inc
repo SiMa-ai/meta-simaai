@@ -86,4 +86,4 @@ python do_insert_version_sw_description () {
 addtask  insert_version_sw_description before do_swuimage after do_prepare_recipe_sysroot
 
 # images and files that will be included in the .swu image
-SWUPDATE_IMAGES = "Image u-boot.bin boot.scr.uimg ${@populate_dtb(d)} ${@populate_dtbo(d)}"
+SWUPDATE_IMAGES = "Image Image.enc u-boot.bin boot.scr.uimg ${@populate_dtb(d)} ${@populate_dtbo(d)}"

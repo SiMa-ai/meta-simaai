@@ -29,6 +29,12 @@ software =
 						#}
 					},
 					{
+						filename = "Image.enc";
+						path = "update/Image.enc"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "modalix-dvt.dtb";
 						path = "update/modalix-dvt.dtb"
 						device = "/dev/update_kernel";
@@ -61,6 +67,12 @@ software =
 					{
 						filename = "modalix-som_8g.dtb";
 						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_16g.dtb";
+						path = "update/modalix-som_16g.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},
@@ -107,6 +119,12 @@ software =
 						#}
 					},
 					{
+						filename = "Image.enc";
+						path = "update/Image.enc"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "modalix-dvt.dtb";
 						path = "update/modalix-dvt.dtb"
 						device = "/dev/update_kernel";
@@ -139,6 +157,12 @@ software =
 					{
 						filename = "modalix-som_8g.dtb";
 						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_16g.dtb";
+						path = "update/modalix-som_16g.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},
@@ -189,6 +213,12 @@ software =
 						#}
 					},
 					{
+						filename = "Image.enc";
+						path = "update/Image.enc"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "modalix-dvt.dtb";
 						path = "update/modalix-dvt.dtb"
 						device = "/dev/update_kernel";
@@ -221,6 +251,12 @@ software =
 					{
 						filename = "modalix-som_8g.dtb";
 						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_16g.dtb";
+						path = "update/modalix-som_16g.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},
@@ -267,6 +303,12 @@ software =
 						#}
 					},
 					{
+						filename = "Image.enc";
+						path = "update/Image.enc"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "modalix-dvt.dtb";
 						path = "update/modalix-dvt.dtb"
 						device = "/dev/update_kernel";
@@ -299,6 +341,12 @@ software =
 					{
 						filename = "modalix-som_8g.dtb";
 						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_16g.dtb";
+						path = "update/modalix-som_16g.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},
@@ -345,6 +393,12 @@ software =
 						#}
 					},
 					{
+						filename = "Image.enc";
+						path = "update/Image.enc"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "modalix-dvt.dtb";
 						path = "update/modalix-dvt.dtb"
 						device = "/dev/update_kernel";
@@ -377,6 +431,12 @@ software =
 					{
 						filename = "modalix-som_8g.dtb";
 						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_16g.dtb";
+						path = "update/modalix-som_16g.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},
@@ -423,6 +483,12 @@ software =
 						#}
 					},
 					{
+						filename = "Image.enc";
+						path = "update/Image.enc"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "modalix-dvt.dtb";
 						path = "update/modalix-dvt.dtb"
 						device = "/dev/update_kernel";
@@ -455,6 +521,12 @@ software =
 					{
 						filename = "modalix-som_8g.dtb";
 						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_16g.dtb";
+						path = "update/modalix-som_16g.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},

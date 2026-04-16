@@ -2,3 +2,4 @@ KERNELS=="a800000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end0", ATTR{
 KERNELS=="b800000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end1", ATTR{tx_queue_len}="4096"
 KERNELS=="c800000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end2", ATTR{tx_queue_len}="4096"
 KERNELS=="d800000.ethernet", SUBSYSTEM=="net", ACTION=="add", NAME="end3", ATTR{tx_queue_len}="4096"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="*:53:49:4d:41:31", NAME="veth-simaai", ENV{NM_UNMANAGED}="1"

@@ -8,11 +8,11 @@ DEPENDS += "virtual/kernel"
 PROVIDES += "simaai-mem"
 ARCH = "arm64"
 
-SIMAAI_MEM_GIT_URI = "git://git@github.com/SiMa-ai/simaai-memory-lib.git"
+SIMAAI_MEM_GIT_URI = "git://github.com/SiMa-ai/sima-ai-uboot.git"
 SIMAAI_MEM_GIT_PROTOCOL = "ssh"
 SIMAAI_MEM_BRANCH = "master"
 SRC_URI = "${SIMAAI_MEM_GIT_URI};protocol=${SIMAAI_MEM_GIT_PROTOCOL};branch=${SIMAAI_MEM_BRANCH}"
-SRCREV = "f3ce68de055906b180d181becdda40022df83d88"
+SRCREV = "d7c74cbb59581f1e3d5c65943cc48891715d4341"
 
 S = "${WORKDIR}/git"
 
@@ -24,19 +24,10 @@ CPPFLAGS += " -I${STAGING_KERNEL_DIR}/include/uapi -I${STAGING_KERNEL_DIR}/inclu
 EXTRA_OEMAKE += "CC='${CC}'"
 EXTRA_OEMAKE += "CXX='${CXX}'"
 
-do_install:append() {
-	install -d ${D}${libdir}
-	install -m 0755 ${S}/libsimaaimem.so ${D}${libdir}
-
-	install -d ${D}${bindir}
-	install -m 0755 ${S}/simaai_mem_test ${D}${bindir}
-
-	install -d ${D}${includedir}/simaai
-	install -m 0444 ${S}/simaai_memory.h ${D}${includedir}/simaai/simaai_memory.h
+do_install() {
+	oe_runmake install DESTDIR=${D}
 }
 
-# This is needed since by default unversioned .so file goes to the -dev package
-# which result in a QA warning. This is done to force installing unversioned .so
-# files to main package
-SOLIBS = ".so"
 FILES_SOLIBSDEV = ""
+SOLIBS = ".so*"
+INSANE_SKIP:${PN} += "dev-so"

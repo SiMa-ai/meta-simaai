@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2026 SiMa ai
+ */
+
+/dts-v1/;
+/plugin/;
+
+&i2c52 {
+	status = "okay";
+	clock-frequency = <400000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+	tca9548@77 {
+		compatible = "nxp,pca9548";
+		reg = <0x77>;
+		status = "okay";
+		i2c@0 {
+			status = "okay";
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			fpga_a: fpga_a@3c {
+				compatible = "nvidia,fpga";
+				reg = <0x3c>;
+				channel = "a";
+			};
+		}
+	}
+}

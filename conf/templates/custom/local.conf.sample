@@ -37,6 +37,9 @@
 # This sets the default machine to be qemux86-64 if no other machine is selected:
 MACHINE ??= "davinci"
 
+# Below enables multiconfig in Yocto to build MLA firmware
+BBMULTICONFIG = "simaai-mla simaai-ev"
+
 #
 # Where to place downloads
 #
@@ -301,3 +304,4 @@ INHERIT:remove = "create-spdx"
 FORTRAN:forcevariable = ",fortran"
 RUNTIMETARGET:append:pn-gcc-runtime = " libquadmath"
 HOSTTOOLS += "gfortran"
+LINUXLIBCVERSION = "6.18"

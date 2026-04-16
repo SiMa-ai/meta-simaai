@@ -8,11 +8,11 @@ COMPATIBLE_MACHINE = "davinci|modalix"
 inherit extrausers image-buildinfo
 
 CORE_IMAGE_EXTRA_INSTALL += "sudo nfs-utils-client u-boot-fw-utils swupdate e2fsprogs-resize2fs \
-                             simaai-firmwares parted procps rsyslog openssh man-db \
+                             simaai-firmwares parted procps rsyslog swsoc-hpidrv openssh man-db \
                              tzdata-core tzdata-misc tzdata-posix tzdata-right tzdata-africa \
                              tzdata-americas tzdata-antarctica tzdata-arctic tzdata-asia \
-                             tzdata-atlantic tzdata-australia tzdata-europe tzdata-pacific \
-                             kernel-modules oot-dtbo libuio"
+                             tzdata-atlantic tzdata-australia tzdata-europe tzdata-pacific simaai-logd \
+                             kernel-modules libuio"
 
 EXTRA_USERS_PARAMS += "groupadd sima; \
                        groupadd -f tracing; \
@@ -36,6 +36,17 @@ python get_sima_build_version () {
     sima_build_number = build_version(d)
     print(sima_build_number)
     d.setVar('SIMA_BUILD_VERSION', sima_build_number)
+}
+
+python __anonymous() {
+    secure = d.getVar("ENABLE_SECURE")
+    machine = d.getVar("MACHINE")
+
+    if secure == "1" and machine == "modalix":
+        bb.note("Compiling secure image ...")
+        d.appendVar("CORE_IMAGE_EXTRA_INSTALL", " trusted-firmware-a optee-client")
+		#fix tee-pci-proxy build errors
+        #d.appendVar("CORE_IMAGE_EXTRA_INSTALL", " trusted-firmware-a optee-client optee-ta-sima optee-ta-sima tee-pci-proxy")
 }
 
 IMAGE_BUILDINFO_VARS += "MACHINE DATE TIME SIMA_BUILD_VERSION"

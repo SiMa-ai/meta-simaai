@@ -13,10 +13,11 @@ SRC_URI += " \
     file://bootup_init.service \
     file://bootup_init.sh \
     file://file-limit.conf \
+    file://simaai-hpi-access.service \
 "
 
 inherit systemd
-SYSTEMD_SERVICE:${PN} = "mnt.mount simaai-pick-nfs.service bootup_init.service"
+SYSTEMD_SERVICE:${PN} = "mnt.mount simaai-pick-nfs.service bootup_init.service simaai-hpi-access.service"
 
 FILES:${PN} += " \
     ${sysconfdir}/systemd/system/systemd-networkd-wait-online.service.d/override.conf \
@@ -50,6 +51,7 @@ do_install:append() {
     install -m 0644 ${WORKDIR}/mnt.mount ${D}${systemd_system_unitdir}
     install -m 0644 ${WORKDIR}/simaai-pick-nfs.service ${D}${systemd_system_unitdir}
     install -m 0644 ${WORKDIR}/bootup_init.service ${D}${systemd_system_unitdir}
+    install -m 0644 ${WORKDIR}/simaai-hpi-access.service ${D}${systemd_system_unitdir}
     install -d ${D}${bindir}
     install -m 0755 ${WORKDIR}/bootup_init.sh ${D}${bindir}
 }

@@ -13,27 +13,35 @@ SRC_URI += " \
 	file://mla_init_modalix.elf \
 	file://renesas_usb_fw.mem \
 	file://x33x0fw.hdr \
-	file://imx678_cam_fw.bin"
+	file://imx678_cam_fw.bin \
+	file://imx568_cam_fw.bin"
 
 inherit useradd
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM:${PN} = "-r sima"
 
+do_install[mcdepends] += "mc::simaai-mla:m4-mla:do_compile"
+do_install[mcdepends] += "mc::simaai-ev:cvu-sw:do_compile"
+
+CVU_FW_PATH = "${TOPDIR}/simaai_ev/work/arc-poky-linux/cvu-sw/0.1/git/"
+MLA_FW_PATH = "${TOPDIR}/simaai_mla/work/cortexm4-poky-eabi/m4-mla/0.1/git/src"
+
 do_install:append() {
 	install -d ${D}${base_libdir}/firmware
 	install -d -m 0770 -g sima ${D}${base_libdir}/firmware/pt_builds
 	install -d ${D}${bindir}/
-	install -m 0644 ${THISDIR}/files/davinci-mla_driver.elf ${D}${base_libdir}/firmware/
-	install -m 0644 ${THISDIR}/files/davinci-mla_driver.bin ${D}${base_libdir}/firmware/
-	install -m 0644 ${THISDIR}/files/modalix-mla_driver.elf ${D}${base_libdir}/firmware/
-	install -m 0644 ${THISDIR}/files/modalix-mla_driver.bin ${D}${base_libdir}/firmware/
+	install -m 0644 ${MLA_FW_PATH}/davinci-mla_driver.elf ${D}${base_libdir}/firmware/
+	install -m 0644 ${MLA_FW_PATH}/davinci-mla_driver.bin ${D}${base_libdir}/firmware/
+	install -m 0644 ${MLA_FW_PATH}/modalix-mla_driver.elf ${D}${base_libdir}/firmware/
+	install -m 0644 ${MLA_FW_PATH}/modalix-mla_driver.bin ${D}${base_libdir}/firmware/
 	install -m 0755 ${WORKDIR}/mla_init_davinci.lm ${D}${bindir}/
 	install -m 0755 ${WORKDIR}/mla_init_modalix.elf ${D}${bindir}/
 	install -m 0644 ${WORKDIR}/renesas_usb_fw.mem ${D}${base_libdir}/firmware/
 	install -m 0644 ${WORKDIR}/x33x0fw.hdr ${D}${base_libdir}/firmware/
 	install -m 0644 ${WORKDIR}/imx678_cam_fw.bin ${D}${base_libdir}/firmware/
-	install -m 0644 ${THISDIR}/files/davinci-cvu-fw ${D}${base_libdir}/firmware/
-	install -m 0644 ${THISDIR}/files/modalix-cvu-fw ${D}${base_libdir}/firmware/
+	install -m 0644 ${WORKDIR}/imx568_cam_fw.bin ${D}${base_libdir}/firmware/
+	install -m 0644 ${CVU_FW_PATH}/davinci-cvu-fw ${D}${base_libdir}/firmware/
+	install -m 0644 ${CVU_FW_PATH}/modalix-cvu-fw ${D}${base_libdir}/firmware/
 }
 
 FILES:${PN} =+ 	"${base_libdir}/firmware/"

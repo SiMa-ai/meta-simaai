@@ -37,9 +37,6 @@
 # This sets the default machine to be qemux86-64 if no other machine is selected:
 MACHINE ??= "davinci"
 
-# Below enables multiconfig in Yocto to build MLA firmware
-BBMULTICONFIG = "simaai-mla simaai-ev"
-
 #
 # Where to place downloads
 #

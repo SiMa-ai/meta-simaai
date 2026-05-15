@@ -6,7 +6,7 @@ Dependencies
 ============
 
   URI: git://git.yoctoproject.org/poky
-  branch: kirkstone
+  branch: scarthgap
 
 Patches
 =======

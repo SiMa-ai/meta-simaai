@@ -8,11 +8,11 @@ DEPENDS += "virtual/kernel"
 PROVIDES += "simaai-mem"
 ARCH = "arm64"
 
-SIMAAI_MEM_GIT_URI = "git://github.com/SiMa-ai/sima-ai-uboot.git"
+SIMAAI_MEM_GIT_URI = "git://git@github.com/SiMa-ai/simaai-memory-lib.git"
 SIMAAI_MEM_GIT_PROTOCOL = "ssh"
 SIMAAI_MEM_BRANCH = "master"
 SRC_URI = "${SIMAAI_MEM_GIT_URI};protocol=${SIMAAI_MEM_GIT_PROTOCOL};branch=${SIMAAI_MEM_BRANCH}"
-SRCREV = "d7c74cbb59581f1e3d5c65943cc48891715d4341"
+SRCREV = "9453fcb46237e6b612de80512e6b1f0cfc752f19"
 
 S = "${WORKDIR}/git"
 

@@ -12,7 +12,7 @@ S = "${WORKDIR}/git"
 KERNEL_GIT_BRANCH = "master"
 KERNEL_GIT_URI_SSH = "git://git@github.com/SiMa-ai/simaai-linux.git"
 KERNEL_GIT_PROTOCOL = "ssh"
-SRCREV = "9182e59eb4b6eedfffdac02ea174ed8dc32dfb31"
+SRCREV = "694f7f2bd658297bd3f3e31e507d63eed4849189"
 
 SRC_URI += "${KERNEL_GIT_URI_SSH};protocol=${KERNEL_GIT_PROTOCOL};branch=${KERNEL_GIT_BRANCH}"
 

@@ -10,7 +10,7 @@ Sima AI BSP Layer
 =====================
 
 The following diagram shows the Sima AI BSP layer on the top of the poky layer of the Yocto project.
-The current Yocto linux kernel version that is being used is 6.1.22.
+The current Yocto linux kernel version that is being used is 6.18.3.
 
 |
 
@@ -151,6 +151,14 @@ boards. Steps to flash or load the image will be discussed in a separate documen
 
        git reset --hard 4a65b1ed36c0b6ee4942d5f23c4984552b17cfe6
 
+  #. Download meta-arm
+     ::
+      git clone https://git.yoctoproject.org/git/meta-arm -b scarthgap
+
+      cd meta-arm
+
+      git reset --hard 0f1e7bf92c89759f0ab74cfa5be4ee47b092ad46
+
   #. Download Sima AI BSP layer
      ::
        git clone https://github.com/SiMa-ai/meta-simaai.git
@@ -199,21 +207,11 @@ boards. Steps to flash or load the image will be discussed in a separate documen
   #. Trigger build
      ::
 
-        For 'davinci'
-
-        MACHINE=davinci bitbake simaai-image-minimal
-     ::
-
         For 'modalix'
 
         MACHINE=modalix bitbake simaai-image-minimal
 
   #. Build linux swu update package
-     ::
-
-        For 'davinci'
-
-        MACHINE=davinci bitbake simaai-image-minimal-upgrade
      ::
 
         For 'modalix'
@@ -223,11 +221,6 @@ boards. Steps to flash or load the image will be discussed in a separate documen
   #. Built images can be located at the following location in the build folder
      ::
 
-        For 'davinci'
-
-        build/tmp/deploy/images/davinci
-     ::
-
         For 'modalix'
 
-        build/tmp/deploy/images/davinci
+        build/tmp/deploy/images/modalix

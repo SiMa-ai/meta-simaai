@@ -9,11 +9,11 @@ DEPENDS = "simaai-mem devmem2 edac-utils python3"
 RDEPENDS:${PN} += "simaai-mem devmem2 edac-utils python3"
 ARCH = "arm64"
 
-SIMAAI_PLAT_TEST_GIT_URI = "git://git@bitbucket.org/sima-ai/simaai-a65-platform-tests.git"
+SIMAAI_PLAT_TEST_GIT_URI = "git://git@github.com/SiMa-ai/simaai-a65-platform-tests.git"
 SIMAAI_PLAT_TEST_GIT_PROTOCOL = "ssh"
 SIMAAI_PLAT_TEST_BRANCH = "master"
 SRC_URI = "${SIMAAI_PLAT_TEST_GIT_URI};protocol=${SIMAAI_PLAT_TEST_GIT_PROTOCOL};branch=${SIMAAI_PLAT_TEST_BRANCH}"
-SRCREV = "${AUTOREV}"
+SRCREV = "b402e898a8ebf3f3083d8d4d4ce1b8107c8af5c3"
 
 S = "${WORKDIR}/git"
 

@@ -12,7 +12,7 @@ SIMAAI_MEM_GIT_URI = "git://git@github.com/SiMa-ai/simaai-memory-lib.git"
 SIMAAI_MEM_GIT_PROTOCOL = "ssh"
 SIMAAI_MEM_BRANCH = "master"
 SRC_URI = "${SIMAAI_MEM_GIT_URI};protocol=${SIMAAI_MEM_GIT_PROTOCOL};branch=${SIMAAI_MEM_BRANCH}"
-SRCREV = "9453fcb46237e6b612de80512e6b1f0cfc752f19"
+SRCREV = "6f6a7cc99e402052522fc2ecf6b2494f5e4719ac"
 
 S = "${WORKDIR}/git"
 

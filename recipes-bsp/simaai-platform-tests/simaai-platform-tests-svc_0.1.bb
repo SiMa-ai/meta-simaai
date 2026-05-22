@@ -13,7 +13,7 @@ SIMAAI_PLAT_TEST_GIT_URI = "git://git@github.com/SiMa-ai/simaai-a65-platform-tes
 SIMAAI_PLAT_TEST_GIT_PROTOCOL = "ssh"
 SIMAAI_PLAT_TEST_BRANCH = "master"
 SRC_URI = "${SIMAAI_PLAT_TEST_GIT_URI};protocol=${SIMAAI_PLAT_TEST_GIT_PROTOCOL};branch=${SIMAAI_PLAT_TEST_BRANCH}"
-SRCREV = "b402e898a8ebf3f3083d8d4d4ce1b8107c8af5c3"
+SRCREV = "f80ed5ebf8bda06713e33be21c2a2d84f6d45f18"
 
 S = "${WORKDIR}/git"
 

@@ -71,6 +71,12 @@ software =
 						filesystem = "vfat";
 					},
 					{
+						filename = "modalix-som_8g_x64.dtb";
+						path = "update/modalix-som_8g_x64.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "modalix-som_16g.dtb";
 						path = "update/modalix-som_16g.dtb"
 						device = "/dev/update_kernel";
@@ -157,6 +163,12 @@ software =
 					{
 						filename = "modalix-som_8g.dtb";
 						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_8g_x64.dtb";
+						path = "update/modalix-som_8g_x64.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},
@@ -255,6 +267,12 @@ software =
 						filesystem = "vfat";
 					},
 					{
+						filename = "modalix-som_8g_x64.dtb";
+						path = "update/modalix-som_8g_x64.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "modalix-som_16g.dtb";
 						path = "update/modalix-som_16g.dtb"
 						device = "/dev/update_kernel";
@@ -341,6 +359,12 @@ software =
 					{
 						filename = "modalix-som_8g.dtb";
 						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_8g_x64.dtb";
+						path = "update/modalix-som_8g_x64.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},
@@ -435,6 +459,12 @@ software =
 						filesystem = "vfat";
 					},
 					{
+						filename = "modalix-som_8g_x64.dtb";
+						path = "update/modalix-som_8g_x64.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
 						filename = "modalix-som_16g.dtb";
 						path = "update/modalix-som_16g.dtb"
 						device = "/dev/update_kernel";
@@ -521,6 +551,12 @@ software =
 					{
 						filename = "modalix-som_8g.dtb";
 						path = "update/modalix-som_8g.dtb"
+						device = "/dev/update_kernel";
+						filesystem = "vfat";
+					},
+					{
+						filename = "modalix-som_8g_x64.dtb";
+						path = "update/modalix-som_8g_x64.dtb"
 						device = "/dev/update_kernel";
 						filesystem = "vfat";
 					},

@@ -98,7 +98,7 @@ boards. Steps to flash or load the image will be discussed in a separate documen
 
        git fetch --tags
 
-       git checkout scarthgap-5.0.6
+       git checkout scarthgap-5.0.16
 
   #. Download Clone meta-python-ai
      ::

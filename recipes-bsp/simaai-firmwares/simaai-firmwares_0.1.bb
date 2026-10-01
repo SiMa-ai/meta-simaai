@@ -14,6 +14,7 @@ SRC_URI += " \
 	file://x33x0fw.hdr \
 	file://imx678_cam_fw.bin \
 	file://imx568_cam_fw.bin \
+	file://imx568_cam_fw_gmsl.bin \
 	file://modalix-mla_driver.elf \
 	file://modalix-mla_driver.bin \
 	file://modalix-cvu-fw"
@@ -33,6 +34,7 @@ do_install:append() {
 	install -m 0644 ${WORKDIR}/x33x0fw.hdr ${D}${base_libdir}/firmware/
 	install -m 0644 ${WORKDIR}/imx678_cam_fw.bin ${D}${base_libdir}/firmware/
 	install -m 0644 ${WORKDIR}/imx568_cam_fw.bin ${D}${base_libdir}/firmware/
+	install -m 0644 ${WORKDIR}/imx568_cam_fw_gmsl.bin ${D}${base_libdir}/firmware/
 	install -m 0644 ${WORKDIR}/modalix-cvu-fw ${D}${base_libdir}/firmware/
 }
 
